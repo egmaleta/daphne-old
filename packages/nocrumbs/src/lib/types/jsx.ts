@@ -1,4 +1,4 @@
-import type { Signal } from "@heliumjs/signals";
+import type { Signal } from "@nocrumbs/signals";
 import type { SignalLikeOrComputed, TypedEvent } from "./util";
 
 // eslint-disable-next-line @typescript-eslint/no-namespace

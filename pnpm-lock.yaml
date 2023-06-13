@@ -11,17 +11,17 @@ importers:
         specifier: ^4.3.9
         version: registry.npmjs.org/vite@4.3.9
 
-  packages/helium:
-    dependencies:
-      '@heliumjs/signals':
-        specifier: workspace:^
-        version: link:../signals
-
   packages/hyperscript-tags:
     dependencies:
-      '@heliumjs/helium':
+      nocrumbs:
         specifier: workspace:^
-        version: link:../helium
+        version: link:../nocrumbs
+
+  packages/nocrumbs:
+    dependencies:
+      '@nocrumbs/signals':
+        specifier: workspace:^
+        version: link:../signals
 
   packages/signals: {}
 

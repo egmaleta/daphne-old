@@ -1,4 +1,4 @@
-import { effect } from "@heliumjs/signals";
+import { effect } from "@nocrumbs/signals";
 import type {
   ComputedVNodeChild,
   VNode,

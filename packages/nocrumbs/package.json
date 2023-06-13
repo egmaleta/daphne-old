@@ -1,5 +1,5 @@
 {
-  "name": "@heliumjs/helium",
+  "name": "nocrumbs",
   "version": "0.0.1",
   "type": "module",
   "files": [
@@ -29,6 +29,6 @@
     "build": "vite build && tsc"
   },
   "dependencies": {
-    "@heliumjs/signals": "workspace:^"
+    "@nocrumbs/signals": "workspace:^"
   }
 }
