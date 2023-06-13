@@ -17,6 +17,12 @@ importers:
         specifier: workspace:^
         version: link:../signals
 
+  packages/hyperscript-tags:
+    dependencies:
+      '@helliumjs/hellium':
+        specifier: workspace:^
+        version: link:../hellium
+
   packages/signals: {}
 
 packages:

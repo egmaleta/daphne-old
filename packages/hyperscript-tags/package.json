@@ -1,0 +1,17 @@
+{
+  "name": "@helliumjs/hyperscript-tags",
+  "version": "0.0.1",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.common.js",
+  "module": "./dist/index.es.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "vite build && tsc"
+  },
+  "dependencies": {
+    "@helliumjs/hellium": "workspace:^"
+  }
+}
