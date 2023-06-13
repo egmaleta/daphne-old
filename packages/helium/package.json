@@ -1,5 +1,5 @@
 {
-  "name": "@helliumjs/hellium",
+  "name": "@heliumjs/helium",
   "version": "0.0.1",
   "type": "module",
   "files": [
@@ -29,6 +29,6 @@
     "build": "vite build && tsc"
   },
   "dependencies": {
-    "@helliumjs/signals": "workspace:^"
+    "@heliumjs/signals": "workspace:^"
   }
 }

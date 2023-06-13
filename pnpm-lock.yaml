@@ -11,17 +11,17 @@ importers:
         specifier: ^4.3.9
         version: registry.npmjs.org/vite@4.3.9
 
-  packages/hellium:
+  packages/helium:
     dependencies:
-      '@helliumjs/signals':
+      '@heliumjs/signals':
         specifier: workspace:^
         version: link:../signals
 
   packages/hyperscript-tags:
     dependencies:
-      '@helliumjs/hellium':
+      '@heliumjs/helium':
         specifier: workspace:^
-        version: link:../hellium
+        version: link:../helium
 
   packages/signals: {}
 

@@ -1,5 +1,5 @@
 {
-  "name": "@helliumjs/hyperscript-tags",
+  "name": "@heliumjs/hyperscript-tags",
   "version": "0.0.1",
   "type": "module",
   "files": [
@@ -12,6 +12,6 @@
     "build": "vite build && tsc"
   },
   "dependencies": {
-    "@helliumjs/hellium": "workspace:^"
+    "@heliumjs/helium": "workspace:^"
   }
 }

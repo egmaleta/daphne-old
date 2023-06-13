@@ -1,4 +1,4 @@
-import { effect } from "@helliumjs/signals";
+import { effect } from "@heliumjs/signals";
 import type {
   ComputedVNodeChild,
   VNode,

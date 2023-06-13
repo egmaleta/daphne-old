@@ -1,5 +1,5 @@
-import { h } from "@helliumjs/hellium";
-import type { Tag, Props, VNodeChildren, VNode } from "@helliumjs/hellium";
+import { h } from "@heliumjs/helium";
+import type { Tag, Props, VNodeChildren, VNode } from "@heliumjs/helium";
 
 function wrap<T extends Tag>(tag: T) {
   return function (props: Props<T>, ...children: VNodeChildren): VNode<T> {
