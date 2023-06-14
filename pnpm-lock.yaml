@@ -25,6 +25,12 @@ importers:
 
   packages/signals: {}
 
+  playground/jsx-test-app:
+    dependencies:
+      nocrumbs:
+        specifier: workspace:^
+        version: link:../../packages/nocrumbs
+
 packages:
 
   registry.npmjs.org/@esbuild/android-arm64@0.17.19:
