@@ -2,8 +2,8 @@ import { h } from "nocrumbs";
 import type { Tag, Props, VNodeChildren, VNode } from "nocrumbs";
 
 function wrap<T extends Tag>(tag: T) {
-  return function (props: Props<T>, ...children: VNodeChildren): VNode<T> {
-    return h(tag, props, ...children);
+  return function (props: Props<T>, ...children: VNodeChildren) {
+    return h(tag, Object.assign(props, children)) as VNode<T>;
   };
 }
 
