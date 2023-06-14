@@ -9,6 +9,7 @@ export default defineConfig({
         "src/jsx-dev-runtime.ts",
         "src/lifecycle.ts",
         "src/signals.ts",
+        "src/hyperscript.ts",
       ],
       formats: ["es", "cjs"],
       fileName: (format, name) =>

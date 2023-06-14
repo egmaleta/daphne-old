@@ -29,6 +29,11 @@
       "require": "./dist/lifecycle.common.js",
       "types": "./dist/lifecycle.d.ts"
     },
+    "./hyperscript": {
+      "import": "./dist/hyperscript.es.js",
+      "require": "./dist/hyperscript.common.js",
+      "types": "./dist/hyperscript.d.ts"
+    },
     "./signals": {
       "import": "./dist/signals.es.js",
       "require": "./dist/signals.common.js",
