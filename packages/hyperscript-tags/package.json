@@ -1,5 +1,5 @@
 {
-  "name": "@nocrumbs/hyperscript-tags",
+  "name": "@bonusjs/hyperscript-tags",
   "version": "0.0.1",
   "type": "module",
   "files": [
@@ -12,6 +12,6 @@
     "build": "vite build && tsc"
   },
   "dependencies": {
-    "nocrumbs": "workspace:^"
+    "bonus": "workspace:^"
   }
 }

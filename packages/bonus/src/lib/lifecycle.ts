@@ -1,4 +1,4 @@
-import { type Signal, effect, signal } from "@nocrumbs/signals";
+import { type Signal, effect, signal } from "@bonusjs/signals";
 import type { Component } from "./types/component";
 import type { VNode } from "./types/vnode";
 

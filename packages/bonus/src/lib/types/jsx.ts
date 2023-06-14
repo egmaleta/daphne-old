@@ -1,4 +1,4 @@
-import type { Signal } from "@nocrumbs/signals";
+import type { Signal } from "@bonusjs/signals";
 import type { SignalLikeOrComputed, TypedEvent } from "./util";
 
 // eslint-disable-next-line @typescript-eslint/no-namespace

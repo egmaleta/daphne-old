@@ -1,5 +1,5 @@
-import { h } from "nocrumbs";
-import type { Tag, Props, VNodeChildren, VNode } from "nocrumbs";
+import { h } from "bonus";
+import type { Tag, Props, VNodeChildren, VNode } from "bonus";
 
 function wrap<T extends Tag>(tag: T) {
   return function (props: Props<T>, ...children: VNodeChildren) {

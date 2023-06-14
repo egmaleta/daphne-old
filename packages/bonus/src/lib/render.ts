@@ -1,4 +1,4 @@
-import { effect } from "@nocrumbs/signals";
+import { effect } from "@bonusjs/signals";
 import type {
   ComputedVNodeChild,
   VNode,

@@ -1,5 +1,5 @@
 {
-  "name": "nocrumbs",
+  "name": "bonus",
   "version": "0.0.1",
   "type": "module",
   "files": [
@@ -39,6 +39,6 @@
     "build": "vite build && tsc"
   },
   "dependencies": {
-    "@nocrumbs/signals": "workspace:^"
+    "@bonusjs/signals": "workspace:^"
   }
 }
