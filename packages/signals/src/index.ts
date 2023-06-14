@@ -1,7 +1,12 @@
 import SignalClass from "./signal";
 import ComputedClass from "./computed-signal";
 import Effect from "./effect";
-import { ReadonlySignal, Signal, TargetType, UpdateFunction } from "./types";
+import type {
+  ReadonlySignal,
+  Signal,
+  TargetType,
+  UpdateFunction,
+} from "./types";
 
 export type { Signal, ReadonlySignal };
 
