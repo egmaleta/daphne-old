@@ -1,5 +1,8 @@
-import { COMPUTATION } from "./current-computation";
 import {
+  getCurrentComputation,
+  setCurrentComputation,
+} from "./current-computation";
+import type {
   SignalGetter,
   SignalPublisher,
   SignalSubscriber,
@@ -37,15 +40,16 @@ export default class ComputedSignal<T extends TargetType>
   }
 
   get() {
-    if (COMPUTATION.current) {
-      this.addSubscriber(COMPUTATION.current);
+    const current = getCurrentComputation();
+    if (current) {
+      this.addSubscriber(current);
     }
 
     if (this.needsToRecompute) {
-      const temp = COMPUTATION.current;
-      COMPUTATION.current = this;
+      const temp = getCurrentComputation();
+      setCurrentComputation(this);
       this.recompute();
-      COMPUTATION.current = temp;
+      setCurrentComputation(temp);
     }
     return this.value as T;
   }

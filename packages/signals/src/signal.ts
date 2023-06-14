@@ -1,5 +1,5 @@
-import { COMPUTATION } from "./current-computation";
-import {
+import { getCurrentComputation } from "./current-computation";
+import type {
   SignalGetter,
   SignalPublisher,
   SignalSubscriber,
@@ -30,8 +30,9 @@ export default class Signal<T extends TargetType>
   }
 
   get() {
-    if (COMPUTATION.current) {
-      this.addSubscriber(COMPUTATION.current);
+    const current = getCurrentComputation();
+    if (current) {
+      this.addSubscriber(current);
     }
     return this.value;
   }

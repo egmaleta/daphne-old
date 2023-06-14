@@ -1,5 +1,5 @@
-import { COMPUTATION } from "./current-computation";
-import { SignalSubscriber } from "./types";
+import { setCurrentComputation } from "./current-computation";
+import type { SignalSubscriber } from "./types";
 
 export default class Effect implements SignalSubscriber {
   private computation: () => void;
@@ -13,9 +13,9 @@ export default class Effect implements SignalSubscriber {
 
   private recompute() {
     this.computing = true;
-    COMPUTATION.current = this;
+    setCurrentComputation(this);
     this.computation();
-    COMPUTATION.current = null;
+    setCurrentComputation(null);
     this.computing = false;
   }
 
