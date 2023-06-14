@@ -1,12 +1,12 @@
-import SignalClass from "./signal";
-import ComputedClass from "./computed-signal";
-import Effect from "./effect";
+import SignalClass from "./lib/signal";
+import ComputedClass from "./lib/computed";
+import Effect from "./lib/effect";
 import type {
   ReadonlySignal,
   Signal,
   TargetType,
   UpdateFunction,
-} from "./types";
+} from "./lib/types";
 
 export type { Signal, ReadonlySignal };
 
