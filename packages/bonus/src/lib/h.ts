@@ -3,7 +3,10 @@ import type { Component } from "./types/component";
 import type { Tag, VNodeChild, VNodeChildren } from "./types/vnode";
 import { flatten } from "./util";
 
-export function h<T extends Tag | Component, P extends Record<string, any>>(
+export default function <
+  T extends Tag | Component,
+  P extends Record<string, any>
+>(
   type: T,
   props: P & { children?: VNodeChild | VNodeChildren }
 ): VNodeChild | VNodeChildren {
