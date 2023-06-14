@@ -18,4 +18,5 @@ export type VNode<T extends Tag = Tag> = {
   tag: T;
   props: Props<T>;
   children: VNodeChildren;
+  mounted?: () => void;
 };

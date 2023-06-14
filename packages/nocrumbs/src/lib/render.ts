@@ -5,6 +5,7 @@ import type {
   VNodeChild,
   VNodeChildren,
 } from "./types/vnode";
+import { triggerLifecycleHook } from "./lifecycle";
 
 const EVENT_LISTENER_PREFIX = "on";
 
@@ -114,8 +115,17 @@ export default function (
 ) {
   if (Array.isArray(vnode)) {
     appendVNodeChildren(parentElement, vnode);
+    vnode.forEach((child) => {
+      child &&
+        typeof child === "object" &&
+        triggerLifecycleHook(child, "mounted");
+    });
   } else {
     const child = renderVNode(vnode);
     child && parentElement.appendChild(child);
+
+    vnode &&
+      typeof vnode === "object" &&
+      triggerLifecycleHook(vnode, "mounted");
   }
 }

@@ -1,3 +1,4 @@
+import { attachLifecycleHookTriggers } from "./lifecycle";
 import type { Component } from "./types/component";
 import type { Tag, VNodeChild, VNodeChildren } from "./types/vnode";
 import { flatten } from "./util";
@@ -24,7 +25,7 @@ export function h<T extends Tag | Component, P extends Record<string, any>>(
   }
 
   // type is a function => jsx expr is a component
-  const componentFunction = type as Component;
+  const component = type as Component;
 
   // look for slotted children by filtering children
   // if a child has a slot prop, filter it out
@@ -45,5 +46,5 @@ export function h<T extends Tag | Component, P extends Record<string, any>>(
 
   const componentProps = Object.assign(rest, { children, ...slottedChildren });
 
-  return componentFunction(componentProps);
+  return attachLifecycleHookTriggers(component, componentProps);
 }
