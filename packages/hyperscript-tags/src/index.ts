@@ -1,9 +1,9 @@
-import { h } from "bonus";
-import type { Tag, Props, VNodeChildren, VNode } from "bonus";
+import type { Props, Tag, VNodeChildren } from "bonus/hyperscript";
+import { html } from "bonus/hyperscript";
 
 function wrap<T extends Tag>(tag: T) {
   return function (props: Props<T>, ...children: VNodeChildren) {
-    return h(tag, Object.assign(props, children)) as VNode<T>;
+    return html(tag, props, ...children);
   };
 }
 
@@ -57,7 +57,7 @@ export const head: WrapFunction<"head"> = wrap("head");
 export const header: WrapFunction<"header"> = wrap("header");
 export const hgroup: WrapFunction<"hgroup"> = wrap("hgroup");
 export const hr: WrapFunction<"hr"> = wrap("hr");
-export const html: WrapFunction<"html"> = wrap("html");
+export const htmlTag: WrapFunction<"html"> = wrap("html");
 export const i: WrapFunction<"i"> = wrap("i");
 export const iframe: WrapFunction<"iframe"> = wrap("iframe");
 export const img: WrapFunction<"img"> = wrap("img");
