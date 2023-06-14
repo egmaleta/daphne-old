@@ -23,6 +23,11 @@
       "import": "./dist/jsx-dev-runtime.es.js",
       "require": "./dist/jsx-dev-runtime.common.js",
       "types": "./dist/jsx-dev-runtime.d.ts"
+    },
+    "./signals": {
+      "import": "./dist/signals.es.js",
+      "require": "./dist/signals.common.js",
+      "types": "./dist/signals.d.ts"
     }
   },
   "scripts": {
