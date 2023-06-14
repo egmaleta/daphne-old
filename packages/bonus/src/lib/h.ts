@@ -10,18 +10,19 @@ export default function <
   type: T,
   props: P & { children?: VNodeChild | VNodeChildren }
 ): VNodeChild | VNodeChildren {
-  // make sure children is a list
-  if (!props.children) {
-    props.children = [];
-  } else if (!Array.isArray(props.children)) {
-    props.children = [props.children];
-  } else {
-    // flatten children
-    props.children = [...flatten(props.children)];
-  }
-
   if (typeof type !== "function") {
-    const { children, ...rest } = props;
+    let { children, ...rest } = props;
+
+    // make sure children is a list
+    if (!children) {
+      children = [];
+    } else if (!Array.isArray(children)) {
+      children = [children];
+    } else {
+      // flatten children
+      children = [...flatten(children)];
+    }
+
     return { tag: type, props: rest, children };
   }
 
