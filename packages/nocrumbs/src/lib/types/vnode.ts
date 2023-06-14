@@ -1,4 +1,4 @@
-import { JSXInternal } from "./jsx";
+import type { JSXInternal } from "./jsx";
 
 export type Tag = keyof JSXInternal.IntrinsicElements;
 export type Props<T extends Tag> = JSXInternal.IntrinsicElements[T];
