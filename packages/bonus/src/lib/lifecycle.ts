@@ -1,6 +1,7 @@
 import { type Signal, effect, signal } from "@bonusjs/signals";
 import type { Component } from "./types/component";
-import type { VNode } from "./types/vnode";
+import type { TagVNode } from "./types/vnode";
+import { isTagVNode } from "./util";
 
 let GUARDS: {
   mount?: Signal<boolean>;
@@ -14,7 +15,7 @@ export function attachLifecycleHookTriggers(
   GUARDS = {};
 
   const result = component(props);
-  if (result && typeof result === "object" && !Array.isArray(result)) {
+  if (!Array.isArray(result) && isTagVNode(result)) {
     const { mount } = GUARDS;
     result.mounted = mount && (() => mount.set(true));
   }
@@ -32,7 +33,7 @@ export function onMount(callback: () => void) {
 }
 
 export function triggerLifecycleHook(
-  vnode: VNode,
+  vnode: TagVNode,
   triggerName: "mounted",
   recursive = true
 ) {
@@ -41,8 +42,6 @@ export function triggerLifecycleHook(
 
   recursive &&
     vnode.children.forEach((child) => {
-      child &&
-        typeof child === "object" &&
-        triggerLifecycleHook(child, triggerName, recursive);
+      isTagVNode(child) && triggerLifecycleHook(child, triggerName, recursive);
     });
 }

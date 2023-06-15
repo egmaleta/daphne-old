@@ -6,10 +6,10 @@ import type {
   VNodeChildren,
 } from "./types/vnode";
 import { triggerLifecycleHook } from "./lifecycle";
+import { isTagVNode, isVNode } from "./util";
 
 const EVENT_LISTENER_PREFIX = "on";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function setAttribute(element: HTMLElement, attrName: string, attr: any) {
   if (typeof attr !== "boolean") {
     element.setAttribute(attrName, attr);
@@ -21,31 +21,48 @@ function setAttribute(element: HTMLElement, attrName: string, attr: any) {
 }
 
 function createElement(vnode: VNode) {
-  const element = document.createElement(vnode.tag);
+  if (isTagVNode(vnode)) {
+    const element = document.createElement(vnode.tag);
 
-  // append event listeners and attributes
-  Object.entries(vnode.props).forEach(([attrName, attr]) => {
-    if (attrName === "ref") {
-      return;
-    }
-    const isEventListener = attrName.startsWith(EVENT_LISTENER_PREFIX);
-    if (isEventListener) {
-      attrName = attrName.slice(EVENT_LISTENER_PREFIX.length);
-      element.addEventListener(attrName, attr as EventListener);
-    } else if (typeof attr !== "function") {
-      setAttribute(element, attrName, attr);
+    // append event listeners and attributes
+    Object.entries(vnode.props).forEach(([attrName, attr]) => {
+      if (attrName === "ref") {
+        return;
+      }
+      const isEventListener = attrName.startsWith(EVENT_LISTENER_PREFIX);
+      if (isEventListener) {
+        attrName = attrName.slice(EVENT_LISTENER_PREFIX.length);
+        element.addEventListener(attrName, attr as EventListener);
+      } else if (typeof attr !== "function") {
+        setAttribute(element, attrName, attr);
+      } else {
+        // attr is a computation or a signal => create a effect
+        effect(() => {
+          const computedAttr = attr();
+          setAttribute(element, attrName, computedAttr);
+        });
+      }
+    });
+
+    appendVNodeChildren(element, vnode.children);
+
+    return element;
+  }
+
+  const text = document.createTextNode("");
+
+  const data = vnode.children;
+  if (data) {
+    if (typeof data !== "function") {
+      text.replaceData(0, text.length, `${data}`);
     } else {
-      // attr is a computation or a signal => create a effect
       effect(() => {
-        const computedAttr = attr();
-        setAttribute(element, attrName, computedAttr);
+        text.replaceData(0, text.length, `${data()}`);
       });
     }
-  });
+  }
 
-  appendVNodeChildren(element, vnode.children);
-
-  return element;
+  return text;
 }
 
 function appendVNodeChildren(
@@ -98,15 +115,13 @@ function appendVNodeChildren(
 }
 
 function renderVNode(vnode: Exclude<VNodeChild, ComputedVNodeChild>) {
-  if (typeof vnode === "object" && vnode !== null) {
+  if (isVNode(vnode)) {
     return createElement(vnode);
   }
 
   if (typeof vnode === "string" || typeof vnode === "number") {
     return document.createTextNode(`${vnode}`);
   }
-
-  return;
 }
 
 export default function (
@@ -116,16 +131,12 @@ export default function (
   if (Array.isArray(vnode)) {
     appendVNodeChildren(parentElement, vnode);
     vnode.forEach((child) => {
-      child &&
-        typeof child === "object" &&
-        triggerLifecycleHook(child, "mounted");
+      isTagVNode(child) && triggerLifecycleHook(child, "mounted");
     });
   } else {
     const child = renderVNode(vnode);
     child && parentElement.appendChild(child);
 
-    vnode &&
-      typeof vnode === "object" &&
-      triggerLifecycleHook(vnode, "mounted");
+    isTagVNode(vnode) && triggerLifecycleHook(vnode, "mounted");
   }
 }

@@ -14,9 +14,18 @@ export type VNodeChild =
   | ComputedVNodeChild;
 export type VNodeChildren = VNodeChild[];
 
-export type VNode<T extends Tag = Tag> = {
+export type TagVNode<T extends Tag = Tag> = {
   tag: T;
   props: Props<T>;
   children: VNodeChildren;
   mounted?: () => void;
 };
+
+export type TextVNodeChild = string | number | (() => string | number);
+
+export type TextVNode = {
+  tag: "text";
+  children?: TextVNodeChild;
+};
+
+export type VNode<T extends Tag = Tag> = TagVNode<T> | TextVNode;
