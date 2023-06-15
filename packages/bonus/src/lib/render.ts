@@ -6,7 +6,7 @@ import type {
   VNodeChildren,
 } from "./types/vnode";
 import { triggerLifecycleHook } from "./lifecycle";
-import { isTagVNode, isVNode } from "./util";
+import { flatten, isTagVNode, isVNode } from "./util";
 
 const EVENT_LISTENER_PREFIX = "on";
 
@@ -129,6 +129,8 @@ export default function (
   vnode: Exclude<VNodeChild, ComputedVNodeChild> | VNodeChildren
 ) {
   if (Array.isArray(vnode)) {
+    vnode = [...flatten(vnode)];
+
     appendVNodeChildren(parentElement, vnode);
     vnode.forEach((child) => {
       isTagVNode(child) && triggerLifecycleHook(child, "mounted");
