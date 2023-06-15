@@ -28,5 +28,11 @@ export default function <
 
   // type is a function => jsx expr is a component
   const component = type as Component;
+
+  // flatten children if array
+  if (Array.isArray(props.children)) {
+    props.children = [...flatten(props.children)];
+  }
+
   return attachLifecycleHookTriggers(component, props);
 }
