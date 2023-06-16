@@ -1,5 +1,5 @@
 {
-  "name": "bonus",
+  "name": "daphne",
   "version": "0.0.1",
   "type": "module",
   "files": [
@@ -44,6 +44,6 @@
     "build": "vite build && tsc"
   },
   "dependencies": {
-    "@bonusjs/signals": "workspace:^"
+    "@daphnejs/signals": "workspace:^"
   }
 }

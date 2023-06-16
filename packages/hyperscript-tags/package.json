@@ -1,5 +1,5 @@
 {
-  "name": "@bonusjs/hyperscript-tags",
+  "name": "@daphnejs/hyperscript-tags",
   "version": "0.0.1",
   "type": "module",
   "files": [
@@ -12,6 +12,6 @@
     "build": "vite build && tsc"
   },
   "dependencies": {
-    "bonus": "workspace:^"
+    "daphne": "workspace:^"
   }
 }

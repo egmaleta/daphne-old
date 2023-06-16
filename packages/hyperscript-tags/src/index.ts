@@ -1,5 +1,5 @@
-import { html } from "bonus/hyperscript";
-import type { JSX } from "bonus/jsx-runtime";
+import { html } from "daphne/hyperscript";
+import type { JSX } from "daphne/jsx-runtime";
 
 function wrap<T extends JSX.Tag>(tag: T) {
   return function (props: JSX.Props<T>, ...children: JSX.VNodeChildren) {

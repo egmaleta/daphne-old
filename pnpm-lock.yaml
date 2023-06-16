@@ -12,13 +12,13 @@ importers:
 
   packages/hyperscript-tags:
     dependencies:
-      bonus:
+      daphne:
         specifier: workspace:^
-        version: link:../bonus
+        version: link:../daphne
 
-  packages/bonus:
+  packages/daphne:
     dependencies:
-      "@bonusjs/signals":
+      "@daphnejs/signals":
         specifier: workspace:^
         version: link:../signals
 
@@ -26,9 +26,9 @@ importers:
 
   playground/jsx-test-app:
     dependencies:
-      bonus:
+      daphne:
         specifier: workspace:^
-        version: link:../../packages/bonus
+        version: link:../../packages/daphne
 
 packages:
   registry.npmjs.org/@esbuild/android-arm64@0.17.19:

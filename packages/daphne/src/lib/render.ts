@@ -1,4 +1,4 @@
-import { effect } from "@bonusjs/signals";
+import { effect } from "@daphnejs/signals";
 import type { JSXInternal } from "./types/jsx";
 import { triggerLifecycleHook } from "./lifecycle";
 import { flatten, isTagVNode, isVNode } from "./util";

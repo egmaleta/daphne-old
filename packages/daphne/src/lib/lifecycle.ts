@@ -1,4 +1,4 @@
-import { type Signal, effect, signal } from "@bonusjs/signals";
+import { type Signal, effect, signal } from "@daphnejs/signals";
 import type { JSXInternal } from "./types/jsx";
 import { isTagVNode } from "./util";
 

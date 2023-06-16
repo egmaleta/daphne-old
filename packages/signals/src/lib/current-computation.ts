@@ -1,6 +1,6 @@
 import type { SignalSubscriber } from "./types";
 
-const PROPERTY_NAME = "BONUS_CURRENT_COMPUTATION";
+const PROPERTY_NAME = "daphne_CURRENT_COMPUTATION";
 
 if (typeof (globalThis as any)[PROPERTY_NAME] === "undefined") {
   Object.defineProperty(globalThis, PROPERTY_NAME, {
