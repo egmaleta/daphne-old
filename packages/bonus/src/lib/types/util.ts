@@ -1,8 +1,5 @@
-export type SignalLikeOrComputed<T> = T | (() => T);
-
-export type TypedEvent<T extends EventTarget, E extends Event> = Omit<
-  E,
-  "currentTarget"
-> & {
-  currentTarget: T;
+export type Computed<T extends {}> = {
+  [K in keyof T]: T[K] | (() => T[K]);
 };
+
+export type EVENT_LISTENER_PREFIX = "on";
