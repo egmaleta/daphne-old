@@ -1,13 +1,13 @@
-import type { Props, Tag, VNodeChildren } from "bonus/hyperscript";
 import { html } from "bonus/hyperscript";
+import type { JSX } from "bonus/jsx-runtime";
 
-function wrap<T extends Tag>(tag: T) {
-  return function (props: Props<T>, ...children: VNodeChildren) {
+function wrap<T extends JSX.Tag>(tag: T) {
+  return function (props: JSX.Props<T>, ...children: JSX.VNodeChildren) {
     return html(tag, props, ...children);
   };
 }
 
-type WrapFunction<T extends Tag> = ReturnType<typeof wrap<T>>;
+type WrapFunction<T extends JSX.Tag> = ReturnType<typeof wrap<T>>;
 
 export const a: WrapFunction<"a"> = wrap("a");
 export const abbr: WrapFunction<"abbr"> = wrap("abbr");
