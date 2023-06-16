@@ -1,6 +1,6 @@
 import { attachLifecycleHookTriggers } from "./lifecycle";
 import type { JSXInternal } from "./types/jsx";
-import { flatten } from "./util";
+import { flatten, purge } from "./util";
 
 export default function <
   T extends JSXInternal.Tag | JSXInternal.FunctionComponent,
@@ -18,6 +18,8 @@ export default function <
       // flatten children
       children = [...flatten(children)];
     }
+
+    children = purge(children);
 
     return { tag: type, props: rest, children };
   }

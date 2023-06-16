@@ -1,7 +1,7 @@
 import { effect } from "@daphnejs/signals";
 import type { JSXInternal } from "./types/jsx";
 import { triggerLifecycleHook } from "./lifecycle";
-import { flatten, isTagVNode, isVNode } from "./util";
+import { flatten, isTagVNode, isVNode, purge } from "./util";
 import type { EVENT_LISTENER_PREFIX } from "./types/util";
 
 const EVENT_LISTENER_PREFIX: EVENT_LISTENER_PREFIX = "on";
@@ -40,7 +40,10 @@ function createElement(vnode: JSXInternal.VNode) {
       }
     });
 
-    appendVNodeChildren(element, vnode.children);
+    // since h filtered out null|undefined|boolean
+    // and transformed renderizable in text nodes
+    // we can pass children as VNode[]
+    appendChildren(element, vnode.children as JSXInternal.VNode[]);
 
     return element;
   }
@@ -61,82 +64,27 @@ function createElement(vnode: JSXInternal.VNode) {
   return text;
 }
 
-function appendVNodeChildren(
+function appendChildren(
   parentElement: HTMLElement,
-  vnodes: JSXInternal.VNodeChildren
+  children: JSXInternal.VNode[]
 ) {
-  const children: (Node | undefined)[] = new Array(vnodes.length);
-  const computedVNodes: (JSXInternal.ComputedVNodeChild | undefined)[] =
-    new Array(vnodes.length);
-
-  // first render of children
-  vnodes.forEach((vnode, i) => {
-    if (typeof vnode === "function") {
-      computedVNodes[i] = vnode;
-    } else {
-      children[i] = renderVNode(vnode);
-    }
-  });
-
-  let firstRender = true;
-  for (let i = 0; i < vnodes.length; i++) {
-    const child = children[i];
-    const vnode = computedVNodes[i];
-
-    if (!vnode) {
-      children[i] = child && parentElement.appendChild(child);
-    } else {
-      effect(() => {
-        const node = renderVNode(vnode()); // subscription
-        if (firstRender) {
-          children[i] = node && parentElement.appendChild(node);
-        } else {
-          // remove old node if exists
-          const oldNode = children[i];
-          oldNode && parentElement.removeChild(oldNode);
-
-          // append new node if exists
-          if (node) {
-            const childNode = children.find((node, j) => j > i && node);
-            children[i] = parentElement.insertBefore(node, childNode ?? null);
-          } else {
-            children[i] = undefined;
-          }
-        }
-      });
-    }
-  }
-  firstRender = false;
-}
-
-function renderVNode(
-  vnode: Exclude<JSXInternal.VNodeChild, JSXInternal.ComputedVNodeChild>
-) {
-  if (isVNode(vnode)) {
-    return createElement(vnode);
-  }
-
-  if (typeof vnode === "string" || typeof vnode === "number") {
-    return document.createTextNode(`${vnode}`);
-  }
+  return parentElement.append(...children.map((child) => createElement(child)));
 }
 
 export default function (
   parentElement: HTMLElement,
-  vnode:
-    | Exclude<JSXInternal.VNodeChild, JSXInternal.ComputedVNodeChild>
-    | JSXInternal.VNodeChildren
+  vnode: JSXInternal.Element
 ) {
   if (Array.isArray(vnode)) {
-    vnode = [...flatten(vnode)];
+    vnode = purge([...flatten(vnode)]);
+    appendChildren(parentElement, vnode as JSXInternal.VNode[]);
 
-    appendVNodeChildren(parentElement, vnode);
     vnode.forEach((child) => {
       isTagVNode(child) && triggerLifecycleHook(child, "mounted");
     });
-  } else {
-    const child = renderVNode(vnode);
-    child && parentElement.appendChild(child);
+  } else if (isVNode(vnode)) {
+    const child = createElement(vnode);
+    parentElement.appendChild(child);
 
     isTagVNode(vnode) && triggerLifecycleHook(vnode, "mounted");
   }

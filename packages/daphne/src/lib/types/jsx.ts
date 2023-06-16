@@ -837,15 +837,16 @@ export namespace JSXInternal {
     wbr: IntrinsicAttributes<HTMLAttributes, HTMLElement>;
   }
 
-  export type ComputedVNodeChild = () => string | number | VNode;
-  export type VNodeChild =
-    | string
-    | number
-    | boolean
-    | null
-    | undefined
-    | VNode
-    | ComputedVNodeChild;
+  export type Renderizable = string | number;
+
+  export type TextVNodeChild = Renderizable | (() => Renderizable);
+
+  export type TextVNode = {
+    tag: "text";
+    children?: TextVNodeChild;
+  };
+
+  export type VNodeChild = boolean | undefined | null | TextVNodeChild | VNode;
   export type VNodeChildren = VNodeChild[];
 
   export type Tag = keyof IntrinsicElements;
@@ -856,13 +857,6 @@ export namespace JSXInternal {
     props: Props<T>;
     children: VNodeChildren;
     mounted?: () => void;
-  };
-
-  export type TextVNodeChild = string | number | (() => string | number);
-
-  export type TextVNode = {
-    tag: "text";
-    children?: TextVNodeChild;
   };
 
   export type VNode<T extends Tag = Tag> = TagVNode<T> | TextVNode;
