@@ -7,8 +7,9 @@ import type {
 } from "./types/vnode";
 import { triggerLifecycleHook } from "./lifecycle";
 import { flatten, isTagVNode, isVNode } from "./util";
+import type { EVENT_LISTENER_PREFIX } from "./types/util";
 
-const EVENT_LISTENER_PREFIX = "on";
+const EVENT_LISTENER_PREFIX: EVENT_LISTENER_PREFIX = "on";
 
 function setAttribute(element: HTMLElement, attrName: string, attr: any) {
   if (typeof attr !== "boolean") {
@@ -32,7 +33,7 @@ function createElement(vnode: VNode) {
       const isEventListener = attrName.startsWith(EVENT_LISTENER_PREFIX);
       if (isEventListener) {
         attrName = attrName.slice(EVENT_LISTENER_PREFIX.length);
-        element.addEventListener(attrName, attr as EventListener);
+        element.addEventListener(attrName, attr);
       } else if (typeof attr !== "function") {
         setAttribute(element, attrName, attr);
       } else {
