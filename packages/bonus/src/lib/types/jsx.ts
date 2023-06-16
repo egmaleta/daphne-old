@@ -836,4 +836,43 @@ export namespace JSXInternal {
     video: IntrinsicAttributes<VideoHTMLAttributes, HTMLVideoElement>;
     wbr: IntrinsicAttributes<HTMLAttributes, HTMLElement>;
   }
+
+  export type ComputedVNodeChild = () => string | number | VNode;
+  export type VNodeChild =
+    | string
+    | number
+    | boolean
+    | null
+    | undefined
+    | VNode
+    | ComputedVNodeChild;
+  export type VNodeChildren = VNodeChild[];
+
+  export type Tag = keyof IntrinsicElements;
+  export type Props<T extends Tag> = IntrinsicElements[T];
+
+  export type TagVNode<T extends Tag = Tag> = {
+    tag: T;
+    props: Props<T>;
+    children: VNodeChildren;
+    mounted?: () => void;
+  };
+
+  export type TextVNodeChild = string | number | (() => string | number);
+
+  export type TextVNode = {
+    tag: "text";
+    children?: TextVNodeChild;
+  };
+
+  export type VNode<T extends Tag = Tag> = TagVNode<T> | TextVNode;
+
+  export type Element = VNodeChild | VNodeChildren;
+
+  export type FunctionComponent<
+    C extends Element = Element,
+    P extends Record<string, any> & { children?: C } = {}
+  > = {
+    (props: P): Element;
+  };
 }

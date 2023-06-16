@@ -1,4 +1,4 @@
-import type { TagVNode, TextVNode, VNode, VNodeChild } from "./types/vnode";
+import type { JSXInternal } from "./types/jsx";
 
 export function* flatten<T>(list: T | T[]): Generator<T> {
   if (Array.isArray(list)) {
@@ -12,14 +12,20 @@ export function* flatten<T>(list: T | T[]): Generator<T> {
   }
 }
 
-export function isVNode(vnode: VNodeChild): vnode is VNode {
+export function isVNode(
+  vnode: JSXInternal.VNodeChild
+): vnode is JSXInternal.VNode {
   return vnode !== null && typeof vnode === "object";
 }
 
-export function isTagVNode(vnode: VNodeChild): vnode is TagVNode {
+export function isTagVNode(
+  vnode: JSXInternal.VNodeChild
+): vnode is JSXInternal.TagVNode {
   return isVNode(vnode) && vnode.tag !== "text";
 }
 
-export function isTextVNode(vnode: VNodeChild): vnode is TextVNode {
+export function isTextVNode(
+  vnode: JSXInternal.VNodeChild
+): vnode is JSXInternal.TextVNode {
   return isVNode(vnode) && vnode.tag === "text";
 }

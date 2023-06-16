@@ -1,9 +1,9 @@
 import h from "./lib/h";
-import type { VNodeChildren } from "./lib/types/vnode";
+import type { JSXInternal } from "./lib/types/jsx";
 
-function Fragment(props: { children: VNodeChildren }) {
+function Fragment(props: { children: JSXInternal.VNodeChildren }) {
   return props.children;
 }
 
 export { h as jsx, h as jsxs, Fragment };
-export type { JSXInternal as JSX } from "./lib/types/jsx";
+export { JSXInternal as JSX };

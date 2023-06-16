@@ -1,6 +1,5 @@
 import { type Signal, effect, signal } from "@bonusjs/signals";
-import type { Component } from "./types/component";
-import type { TagVNode } from "./types/vnode";
+import type { JSXInternal } from "./types/jsx";
 import { isTagVNode } from "./util";
 
 let GUARDS: {
@@ -8,7 +7,7 @@ let GUARDS: {
 } = {};
 
 export function attachLifecycleHookTriggers(
-  component: Component,
+  component: JSXInternal.FunctionComponent,
   props: Record<string, any>
 ) {
   const temp = { ...GUARDS };
@@ -33,7 +32,7 @@ export function onMount(callback: () => void) {
 }
 
 export function triggerLifecycleHook(
-  vnode: TagVNode,
+  vnode: JSXInternal.TagVNode,
   triggerName: "mounted",
   recursive = true
 ) {

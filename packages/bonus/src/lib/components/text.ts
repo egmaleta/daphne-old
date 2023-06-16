@@ -1,9 +1,9 @@
-import type { TextVNode, TextVNodeChild } from "../types/vnode";
+import type { JSXInternal } from "../types/jsx";
 
 interface TextProps {
-  children?: TextVNodeChild;
+  children?: JSXInternal.TextVNodeChild;
 }
 
-export default function (props: TextProps): TextVNode {
+export default function (props: TextProps): JSXInternal.TextVNode {
   return { tag: "text", children: props.children };
 }

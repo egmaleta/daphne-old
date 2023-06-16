@@ -1,10 +1,5 @@
 import { effect } from "@bonusjs/signals";
-import type {
-  ComputedVNodeChild,
-  VNode,
-  VNodeChild,
-  VNodeChildren,
-} from "./types/vnode";
+import type { JSXInternal } from "./types/jsx";
 import { triggerLifecycleHook } from "./lifecycle";
 import { flatten, isTagVNode, isVNode } from "./util";
 import type { EVENT_LISTENER_PREFIX } from "./types/util";
@@ -21,7 +16,7 @@ function setAttribute(element: HTMLElement, attrName: string, attr: any) {
   }
 }
 
-function createElement(vnode: VNode) {
+function createElement(vnode: JSXInternal.VNode) {
   if (isTagVNode(vnode)) {
     const element = document.createElement(vnode.tag);
 
@@ -68,12 +63,11 @@ function createElement(vnode: VNode) {
 
 function appendVNodeChildren(
   parentElement: HTMLElement,
-  vnodes: VNodeChildren
+  vnodes: JSXInternal.VNodeChildren
 ) {
   const children: (Node | undefined)[] = new Array(vnodes.length);
-  const computedVNodes: (ComputedVNodeChild | undefined)[] = new Array(
-    vnodes.length
-  );
+  const computedVNodes: (JSXInternal.ComputedVNodeChild | undefined)[] =
+    new Array(vnodes.length);
 
   // first render of children
   vnodes.forEach((vnode, i) => {
@@ -115,7 +109,9 @@ function appendVNodeChildren(
   firstRender = false;
 }
 
-function renderVNode(vnode: Exclude<VNodeChild, ComputedVNodeChild>) {
+function renderVNode(
+  vnode: Exclude<JSXInternal.VNodeChild, JSXInternal.ComputedVNodeChild>
+) {
   if (isVNode(vnode)) {
     return createElement(vnode);
   }
@@ -127,7 +123,9 @@ function renderVNode(vnode: Exclude<VNodeChild, ComputedVNodeChild>) {
 
 export default function (
   parentElement: HTMLElement,
-  vnode: Exclude<VNodeChild, ComputedVNodeChild> | VNodeChildren
+  vnode:
+    | Exclude<JSXInternal.VNodeChild, JSXInternal.ComputedVNodeChild>
+    | JSXInternal.VNodeChildren
 ) {
   if (Array.isArray(vnode)) {
     vnode = [...flatten(vnode)];

@@ -1,15 +1,11 @@
 import { attachLifecycleHookTriggers } from "./lifecycle";
-import type { Component } from "./types/component";
-import type { Tag, VNodeChild, VNodeChildren } from "./types/vnode";
+import type { JSXInternal } from "./types/jsx";
 import { flatten } from "./util";
 
 export default function <
-  T extends Tag | Component,
-  P extends Record<string, any>
->(
-  type: T,
-  props: P & { children?: VNodeChild | VNodeChildren }
-): VNodeChild | VNodeChildren {
+  T extends JSXInternal.Tag | JSXInternal.FunctionComponent,
+  P extends Record<string, any> & { children?: JSXInternal.Element }
+>(type: T, props: P): JSXInternal.Element {
   if (typeof type !== "function") {
     let { children, ...rest } = props;
 
@@ -27,7 +23,7 @@ export default function <
   }
 
   // type is a function => jsx expr is a component
-  const component = type as Component;
+  const component = type as JSXInternal.FunctionComponent;
 
   // flatten children if array
   if (Array.isArray(props.children)) {
