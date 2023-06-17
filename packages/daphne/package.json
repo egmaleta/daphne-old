@@ -4,7 +4,12 @@
   "type": "module",
   "files": [
     "dist",
-    "src/types.d.ts"
+    "src/hyperscript.d.ts",
+    "src/index.d.ts",
+    "src/jsx-dev-runtime.d.ts",
+    "src/jsx-runtime.d.ts",
+    "src/lifecycle.d.ts",
+    "src/signals.d.ts"
   ],
   "main": "./dist/index.common.js",
   "module": "./dist/index.es.js",
@@ -13,32 +18,32 @@
     ".": {
       "import": "./dist/index.es.js",
       "require": "./dist/index.common.js",
-      "types": "./src/types.d.ts"
+      "types": "./src/index.d.ts"
     },
     "./jsx-runtime": {
       "import": "./dist/jsx-runtime.es.js",
       "require": "./dist/jsx-runtime.common.js",
-      "types": "./src/types.d.ts"
+      "types": "./src/jsx-runtime.d.ts"
     },
     "./jsx-dev-runtime": {
       "import": "./dist/jsx-dev-runtime.es.js",
       "require": "./dist/jsx-dev-runtime.common.js",
-      "types": "./src/types.d.ts"
+      "types": "./src/jsx-dev-runtime.d.ts"
     },
     "./lifecycle": {
       "import": "./dist/lifecycle.es.js",
       "require": "./dist/lifecycle.common.js",
-      "types": "./src/types.d.ts"
+      "types": "./src/lifecycle.d.ts"
     },
     "./hyperscript": {
       "import": "./dist/hyperscript.es.js",
       "require": "./dist/hyperscript.common.js",
-      "types": "./src/types.d.ts"
+      "types": "./src/hyperscript.d.ts"
     },
     "./signals": {
       "import": "./dist/signals.es.js",
       "require": "./dist/signals.common.js",
-      "types": "./src/types.d.ts"
+      "types": "./src/signals.d.ts"
     }
   },
   "scripts": {
