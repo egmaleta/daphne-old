@@ -6,6 +6,18 @@ import type { EVENT_LISTENER_PREFIX } from "./types/util";
 
 const EVENT_LISTENER_PREFIX: EVENT_LISTENER_PREFIX = "on";
 
+function addEventListener(
+  target: EventTarget,
+  eventName: string,
+  listener: any
+) {
+  if (typeof listener === "function") {
+    target.addEventListener(eventName, listener);
+  } else {
+    target.addEventListener(eventName, listener.handler, listener.options);
+  }
+}
+
 function setAttribute(element: HTMLElement, attrName: string, attr: any) {
   if (typeof attr !== "boolean") {
     element.setAttribute(attrName, attr);
@@ -26,7 +38,13 @@ function createElement(vnode: JSXInternal.VNode) {
         attr && attr.set(element);
       } else if (attrName.startsWith(EVENT_LISTENER_PREFIX)) {
         attrName = attrName.slice(EVENT_LISTENER_PREFIX.length);
-        element.addEventListener(attrName, attr);
+        if (Array.isArray(attr)) {
+          for (const listener of attr) {
+            addEventListener(element, attrName, listener);
+          }
+        } else {
+          addEventListener(element, attrName, attr);
+        }
       } else if (typeof attr !== "function") {
         setAttribute(element, attrName, attr);
       } else {

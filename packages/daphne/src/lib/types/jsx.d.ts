@@ -7,15 +7,17 @@ export declare namespace JSXInternal {
     "currentTarget"
   > & { readonly currentTarget: T };
 
-  type EventHandler<E extends Event, T extends EventTarget> = (
-    ev: TypedEvent<E, T>
-  ) => any;
+  type EventHandler<E extends Event, T extends EventTarget> =
+    | ((ev: TypedEvent<E, T>) => any)
+    | {
+        handler: (ev: TypedEvent<E, T>) => any;
+        options?: AddEventListenerOptions;
+      };
 
   type EventHandlers<T extends EventTarget> = {
-    [K in keyof HTMLElementEventMap as `${EVENT_LISTENER_PREFIX}${K}`]?: EventHandler<
-      HTMLElementEventMap[K],
-      T
-    >;
+    [K in keyof HTMLElementEventMap as `${EVENT_LISTENER_PREFIX}${K}`]?:
+      | EventHandler<HTMLElementEventMap[K], T>
+      | EventHandler<HTMLElementEventMap[K], T>[];
   };
 
   interface AriaAttributes {
