@@ -2,9 +2,8 @@ import { effect } from "@daphnejs/signals";
 import type { JSXInternal } from "./types/jsx";
 import { triggerLifecycleHook } from "./lifecycle";
 import { flatten, isTagVNode, isVNode, purge } from "./util";
-import type { EVENT_LISTENER_PREFIX } from "./types/util";
 
-const EVENT_LISTENER_PREFIX: EVENT_LISTENER_PREFIX = "on";
+const EVENT_LISTENER_PREFIX = "on";
 
 function addEventListener(
   target: EventTarget,
