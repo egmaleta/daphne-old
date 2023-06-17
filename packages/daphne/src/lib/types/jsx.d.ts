@@ -1,7 +1,7 @@
 import type { Signal } from "@daphnejs/signals";
 import type { Computed, EVENT_LISTENER_PREFIX } from "./util";
 
-export namespace JSXInternal {
+export declare namespace JSXInternal {
   type TypedEvent<E extends Event, T extends EventTarget> = Omit<
     E,
     "currentTarget"
