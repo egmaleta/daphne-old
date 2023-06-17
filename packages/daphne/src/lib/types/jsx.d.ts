@@ -1,42 +1,143 @@
 import type { Signal } from "@daphnejs/signals";
-import type { Computed, EVENT_LISTENER_PREFIX } from "./util";
+import type { OrArray, OrComputed } from "./util";
 
 export declare namespace JSXInternal {
-  type TypedEvent<E extends Event, T extends EventTarget> = Omit<
-    E,
-    "currentTarget"
-  > & { readonly currentTarget: T };
+  type TypedEvent<
+    E extends Event = Event,
+    T extends EventTarget = EventTarget
+  > = Omit<E, "currentTarget"> & { readonly currentTarget: T };
 
-  type EventHandler<E extends Event, T extends EventTarget> =
+  type EventHandler<
+    E extends Event = Event,
+    T extends EventTarget = EventTarget
+  > =
     | ((ev: TypedEvent<E, T>) => any)
     | {
         handler: (ev: TypedEvent<E, T>) => any;
         options?: AddEventListenerOptions;
       };
 
-  type EventHandlers<T extends EventTarget> = {
-    [K in keyof HTMLElementEventMap as `${EVENT_LISTENER_PREFIX}${K}`]?:
-      | EventHandler<HTMLElementEventMap[K], T>
-      | EventHandler<HTMLElementEventMap[K], T>[];
-  };
+  interface EventHandlers<T extends EventTarget = EventTarget> {
+    onabort?: OrArray<EventHandler<UIEvent, T>>;
+    onanimationcancel?: OrArray<EventHandler<AnimationEvent, T>>;
+    onanimationend?: OrArray<EventHandler<AnimationEvent, T>>;
+    onanimationiteration?: OrArray<EventHandler<AnimationEvent, T>>;
+    onanimationstart?: OrArray<EventHandler<AnimationEvent, T>>;
+    onauxclick?: OrArray<EventHandler<MouseEvent, T>>;
+    onbeforeinput?: OrArray<EventHandler<InputEvent, T>>;
+    onblur?: OrArray<EventHandler<FocusEvent, T>>;
+    oncancel?: OrArray<EventHandler<Event, T>>;
+    oncanplay?: OrArray<EventHandler<Event, T>>;
+    oncanplaythrough?: OrArray<EventHandler<Event, T>>;
+    onchange?: OrArray<EventHandler<Event, T>>;
+    onclick?: OrArray<EventHandler<MouseEvent, T>>;
+    onclose?: OrArray<EventHandler<Event, T>>;
+    oncompositionend?: OrArray<EventHandler<CompositionEvent, T>>;
+    oncompositionstart?: OrArray<EventHandler<CompositionEvent, T>>;
+    oncompositionupdate?: OrArray<EventHandler<CompositionEvent, T>>;
+    oncontextmenu?: OrArray<EventHandler<MouseEvent, T>>;
+    oncopy?: OrArray<EventHandler<ClipboardEvent, T>>;
+    oncuechange?: OrArray<EventHandler<Event, T>>;
+    oncut?: OrArray<EventHandler<ClipboardEvent, T>>;
+    ondblclick?: OrArray<EventHandler<MouseEvent, T>>;
+    ondrag?: OrArray<EventHandler<DragEvent, T>>;
+    ondragend?: OrArray<EventHandler<DragEvent, T>>;
+    ondragenter?: OrArray<EventHandler<DragEvent, T>>;
+    ondragleave?: OrArray<EventHandler<DragEvent, T>>;
+    ondragover?: OrArray<EventHandler<DragEvent, T>>;
+    ondragstart?: OrArray<EventHandler<DragEvent, T>>;
+    ondrop?: OrArray<EventHandler<DragEvent, T>>;
+    ondurationchange?: OrArray<EventHandler<Event, T>>;
+    onemptied?: OrArray<EventHandler<Event, T>>;
+    onended?: OrArray<EventHandler<Event, T>>;
+    onerror?: OrArray<EventHandler<ErrorEvent, T>>;
+    onfocus?: OrArray<EventHandler<FocusEvent, T>>;
+    onfocusin?: OrArray<EventHandler<FocusEvent, T>>;
+    onfocusout?: OrArray<EventHandler<FocusEvent, T>>;
+    onformdata?: OrArray<EventHandler<FormDataEvent, T>>;
+    onfullscreenchange?: OrArray<EventHandler<Event, T>>;
+    onfullscreenerror?: OrArray<EventHandler<Event, T>>;
+    ongotpointercapture?: OrArray<EventHandler<PointerEvent, T>>;
+    oninput?: OrArray<EventHandler<Event, T>>;
+    oninvalid?: OrArray<EventHandler<Event, T>>;
+    onkeydown?: OrArray<EventHandler<KeyboardEvent, T>>;
+    onkeypress?: OrArray<EventHandler<KeyboardEvent, T>>;
+    onkeyup?: OrArray<EventHandler<KeyboardEvent, T>>;
+    onload?: OrArray<EventHandler<Event, T>>;
+    onloadeddata?: OrArray<EventHandler<Event, T>>;
+    onloadedmetadata?: OrArray<EventHandler<Event, T>>;
+    onloadstart?: OrArray<EventHandler<Event, T>>;
+    onlostpointercapture?: OrArray<EventHandler<PointerEvent, T>>;
+    onmousedown?: OrArray<EventHandler<MouseEvent, T>>;
+    onmouseenter?: OrArray<EventHandler<MouseEvent, T>>;
+    onmouseleave?: OrArray<EventHandler<MouseEvent, T>>;
+    onmousemove?: OrArray<EventHandler<MouseEvent, T>>;
+    onmouseout?: OrArray<EventHandler<MouseEvent, T>>;
+    onmouseover?: OrArray<EventHandler<MouseEvent, T>>;
+    onmouseup?: OrArray<EventHandler<MouseEvent, T>>;
+    onpaste?: OrArray<EventHandler<ClipboardEvent, T>>;
+    onpause?: OrArray<EventHandler<Event, T>>;
+    onplay?: OrArray<EventHandler<Event, T>>;
+    onplaying?: OrArray<EventHandler<Event, T>>;
+    onpointercancel?: OrArray<EventHandler<PointerEvent, T>>;
+    onpointerdown?: OrArray<EventHandler<PointerEvent, T>>;
+    onpointerenter?: OrArray<EventHandler<PointerEvent, T>>;
+    onpointerleave?: OrArray<EventHandler<PointerEvent, T>>;
+    onpointermove?: OrArray<EventHandler<PointerEvent, T>>;
+    onpointerout?: OrArray<EventHandler<PointerEvent, T>>;
+    onpointerover?: OrArray<EventHandler<PointerEvent, T>>;
+    onpointerup?: OrArray<EventHandler<PointerEvent, T>>;
+    onprogress?: OrArray<EventHandler<ProgressEvent, T>>;
+    onratechange?: OrArray<EventHandler<Event, T>>;
+    onreset?: OrArray<EventHandler<Event, T>>;
+    onresize?: OrArray<EventHandler<UIEvent, T>>;
+    onscroll?: OrArray<EventHandler<Event, T>>;
+    onsecuritypolicyviolation?: OrArray<
+      EventHandler<SecurityPolicyViolationEvent, T>
+    >;
+    onseeked?: OrArray<EventHandler<Event, T>>;
+    onseeking?: OrArray<EventHandler<Event, T>>;
+    onselect?: OrArray<EventHandler<Event, T>>;
+    onselectionchange?: OrArray<EventHandler<Event, T>>;
+    onselectstart?: OrArray<EventHandler<Event, T>>;
+    onslotchange?: OrArray<EventHandler<Event, T>>;
+    onstalled?: OrArray<EventHandler<Event, T>>;
+    onsubmit?: OrArray<EventHandler<SubmitEvent, T>>;
+    onsuspend?: OrArray<EventHandler<Event, T>>;
+    ontimeupdate?: OrArray<EventHandler<Event, T>>;
+    ontoggle?: OrArray<EventHandler<Event, T>>;
+    ontouchcancel?: OrArray<EventHandler<TouchEvent, T>>;
+    ontouchend?: OrArray<EventHandler<TouchEvent, T>>;
+    ontouchmove?: OrArray<EventHandler<TouchEvent, T>>;
+    ontouchstart?: OrArray<EventHandler<TouchEvent, T>>;
+    ontransitioncancel?: OrArray<EventHandler<TransitionEvent, T>>;
+    ontransitionend?: OrArray<EventHandler<TransitionEvent, T>>;
+    ontransitionrun?: OrArray<EventHandler<TransitionEvent, T>>;
+    ontransitionstart?: OrArray<EventHandler<TransitionEvent, T>>;
+    onvolumechange?: OrArray<EventHandler<Event, T>>;
+    onwaiting?: OrArray<EventHandler<Event, T>>;
+    onwebkitanimationend?: OrArray<EventHandler<Event, T>>;
+    onwebkitanimationiteration?: OrArray<EventHandler<Event, T>>;
+    onwebkitanimationstart?: OrArray<EventHandler<Event, T>>;
+    onwebkittransitionend?: OrArray<EventHandler<Event, T>>;
+    onwheel?: OrArray<EventHandler<WheelEvent, T>>;
+  }
 
   interface AriaAttributes {
-    "aria-activedescendant"?: string | undefined | null;
-    "aria-atomic"?: boolean | "false" | "true" | undefined | null;
-    "aria-autocomplete"?:
-      | "none"
-      | "inline"
-      | "list"
-      | "both"
-      | undefined
-      | null;
-    "aria-busy"?: boolean | "false" | "true" | undefined | null;
-    "aria-checked"?: boolean | "false" | "mixed" | "true" | undefined | null;
-    "aria-colcount"?: number | string | undefined | null;
-    "aria-colindex"?: number | string | undefined | null;
-    "aria-colspan"?: number | string | undefined | null;
-    "aria-controls"?: string | undefined | null;
-    "aria-current"?:
+    "aria-activedescendant"?: OrComputed<string | undefined | null>;
+    "aria-atomic"?: OrComputed<boolean | "false" | "true" | undefined | null>;
+    "aria-autocomplete"?: OrComputed<
+      "none" | "inline" | "list" | "both" | undefined | null
+    >;
+    "aria-busy"?: OrComputed<boolean | "false" | "true" | undefined | null>;
+    "aria-checked"?: OrComputed<
+      boolean | "false" | "mixed" | "true" | undefined | null
+    >;
+    "aria-colcount"?: OrComputed<number | string | undefined | null>;
+    "aria-colindex"?: OrComputed<number | string | undefined | null>;
+    "aria-colspan"?: OrComputed<number | string | undefined | null>;
+    "aria-controls"?: OrComputed<string | undefined | null>;
+    "aria-current"?: OrComputed<
       | boolean
       | "false"
       | "true"
@@ -46,24 +147,19 @@ export declare namespace JSXInternal {
       | "date"
       | "time"
       | undefined
-      | null;
-    "aria-describedby"?: string | undefined | null;
-    "aria-details"?: string | undefined | null;
-    "aria-disabled"?: boolean | "false" | "true" | undefined | null;
-    "aria-dropeffect"?:
-      | "none"
-      | "copy"
-      | "execute"
-      | "link"
-      | "move"
-      | "popup"
-      | undefined
-      | null;
-    "aria-errormessage"?: string | undefined | null;
-    "aria-expanded"?: boolean | "false" | "true" | undefined | null;
-    "aria-flowto"?: string | undefined | null;
-    "aria-grabbed"?: boolean | "false" | "true" | undefined | null;
-    "aria-haspopup"?:
+      | null
+    >;
+    "aria-describedby"?: OrComputed<string | undefined | null>;
+    "aria-details"?: OrComputed<string | undefined | null>;
+    "aria-disabled"?: OrComputed<boolean | "false" | "true" | undefined | null>;
+    "aria-dropeffect"?: OrComputed<
+      "none" | "copy" | "execute" | "link" | "move" | "popup" | undefined | null
+    >;
+    "aria-errormessage"?: OrComputed<string | undefined | null>;
+    "aria-expanded"?: OrComputed<boolean | "false" | "true" | undefined | null>;
+    "aria-flowto"?: OrComputed<string | undefined | null>;
+    "aria-grabbed"?: OrComputed<boolean | "false" | "true" | undefined | null>;
+    "aria-haspopup"?: OrComputed<
       | boolean
       | "false"
       | "true"
@@ -73,31 +169,35 @@ export declare namespace JSXInternal {
       | "grid"
       | "dialog"
       | undefined
-      | null;
-    "aria-hidden"?: boolean | "false" | "true" | undefined | null;
-    "aria-invalid"?:
-      | boolean
-      | "false"
-      | "true"
-      | "grammar"
-      | "spelling"
-      | undefined
-      | null;
-    "aria-keyshortcuts"?: string | undefined | null;
-    "aria-label"?: string | undefined | null;
-    "aria-labelledby"?: string | undefined | null;
-    "aria-level"?: number | string | undefined | null;
-    "aria-live"?: "off" | "assertive" | "polite" | undefined | null;
-    "aria-modal"?: boolean | "false" | "true" | undefined | null;
-    "aria-multiline"?: boolean | "false" | "true" | undefined | null;
-    "aria-multiselectable"?: boolean | "false" | "true" | undefined | null;
-    "aria-orientation"?: "horizontal" | "vertical" | undefined | null;
-    "aria-owns"?: string | undefined | null;
-    "aria-placeholder"?: string | undefined | null;
-    "aria-posinset"?: number | string | undefined | null;
-    "aria-pressed"?: boolean | "false" | "mixed" | "true" | undefined | null;
-    "aria-readonly"?: boolean | "false" | "true" | undefined | null;
-    "aria-relevant"?:
+      | null
+    >;
+    "aria-hidden"?: OrComputed<boolean | "false" | "true" | undefined | null>;
+    "aria-invalid"?: OrComputed<
+      boolean | "false" | "true" | "grammar" | "spelling" | undefined | null
+    >;
+    "aria-keyshortcuts"?: OrComputed<string | undefined | null>;
+    "aria-label"?: OrComputed<string | undefined | null>;
+    "aria-labelledby"?: OrComputed<string | undefined | null>;
+    "aria-level"?: OrComputed<number | string | undefined | null>;
+    "aria-live"?: OrComputed<"off" | "assertive" | "polite" | undefined | null>;
+    "aria-modal"?: OrComputed<boolean | "false" | "true" | undefined | null>;
+    "aria-multiline"?: OrComputed<
+      boolean | "false" | "true" | undefined | null
+    >;
+    "aria-multiselectable"?: OrComputed<
+      boolean | "false" | "true" | undefined | null
+    >;
+    "aria-orientation"?: OrComputed<
+      "horizontal" | "vertical" | undefined | null
+    >;
+    "aria-owns"?: OrComputed<string | undefined | null>;
+    "aria-placeholder"?: OrComputed<string | undefined | null>;
+    "aria-posinset"?: OrComputed<number | string | undefined | null>;
+    "aria-pressed"?: OrComputed<
+      boolean | "false" | "mixed" | "true" | undefined | null
+    >;
+    "aria-readonly"?: OrComputed<boolean | "false" | "true" | undefined | null>;
+    "aria-relevant"?: OrComputed<
       | "additions"
       | "additions removals"
       | "additions text"
@@ -109,25 +209,22 @@ export declare namespace JSXInternal {
       | "text additions"
       | "text removals"
       | undefined
-      | null;
-    "aria-required"?: boolean | "false" | "true" | undefined | null;
-    "aria-roledescription"?: string | undefined | null;
-    "aria-rowcount"?: number | string | undefined | null;
-    "aria-rowindex"?: number | string | undefined | null;
-    "aria-rowspan"?: number | string | undefined | null;
-    "aria-selected"?: boolean | "false" | "true" | undefined | null;
-    "aria-setsize"?: number | string | undefined | null;
-    "aria-sort"?:
-      | "none"
-      | "ascending"
-      | "descending"
-      | "other"
-      | undefined
-      | null;
-    "aria-valuemax"?: number | string | undefined | null;
-    "aria-valuemin"?: number | string | undefined | null;
-    "aria-valuenow"?: number | string | undefined | null;
-    "aria-valuetext"?: string | undefined | null;
+      | null
+    >;
+    "aria-required"?: OrComputed<boolean | "false" | "true" | undefined | null>;
+    "aria-roledescription"?: OrComputed<string | undefined | null>;
+    "aria-rowcount"?: OrComputed<number | string | undefined | null>;
+    "aria-rowindex"?: OrComputed<number | string | undefined | null>;
+    "aria-rowspan"?: OrComputed<number | string | undefined | null>;
+    "aria-selected"?: OrComputed<boolean | "false" | "true" | undefined | null>;
+    "aria-setsize"?: OrComputed<number | string | undefined | null>;
+    "aria-sort"?: OrComputed<
+      "none" | "ascending" | "descending" | "other" | undefined | null
+    >;
+    "aria-valuemax"?: OrComputed<number | string | undefined | null>;
+    "aria-valuemin"?: OrComputed<number | string | undefined | null>;
+    "aria-valuenow"?: OrComputed<number | string | undefined | null>;
+    "aria-valuetext"?: OrComputed<string | undefined | null>;
   }
 
   type AriaRole =
@@ -200,22 +297,18 @@ export declare namespace JSXInternal {
     | "tree"
     | "treegrid"
     | "treeitem";
+
   interface HTMLAttributes extends AriaAttributes {
-    accesskey?: string | undefined | null;
-    autocapitalize?: string | undefined | null;
-    autofocus?: boolean | string | undefined | null;
-    class?: string | undefined | null;
-    contenteditable?:
-      | "true"
-      | "false"
-      | boolean
-      | "inherit"
-      | string
-      | undefined
-      | null;
-    dir?: string | undefined | null;
-    draggable?: "true" | "false" | boolean | undefined | null;
-    enterkeyhint?:
+    accesskey?: OrComputed<string | undefined | null>;
+    autocapitalize?: OrComputed<string | undefined | null>;
+    autofocus?: OrComputed<boolean | string | undefined | null>;
+    class?: OrComputed<string | undefined | null>;
+    contenteditable?: OrComputed<
+      "true" | "false" | boolean | "inherit" | string | undefined | null
+    >;
+    dir?: OrComputed<string | undefined | null>;
+    draggable?: OrComputed<"true" | "false" | boolean | undefined | null>;
+    enterkeyhint?: OrComputed<
       | "enter"
       | "done"
       | "go"
@@ -224,11 +317,12 @@ export declare namespace JSXInternal {
       | "search"
       | "send"
       | undefined
-      | null;
-    hidden?: boolean | string | undefined | null;
-    id?: string | undefined | null;
-    inert?: boolean | string | undefined | null;
-    inputmode?:
+      | null
+    >;
+    hidden?: OrComputed<boolean | string | undefined | null>;
+    id?: OrComputed<string | undefined | null>;
+    inert?: OrComputed<boolean | string | undefined | null>;
+    inputmode?: OrComputed<
       | "none"
       | "text"
       | "tel"
@@ -238,36 +332,37 @@ export declare namespace JSXInternal {
       | "decimal"
       | "search"
       | undefined
-      | null;
-    is?: string | undefined | null;
-    itemid?: string | undefined | null;
-    itemprop?: string | undefined | null;
-    itemref?: string | undefined | null;
-    itemscope?: boolean | string | undefined | null;
-    itemtype?: string | undefined | null;
-    lang?: string | undefined | null;
-    slot?: string | undefined | null;
-    spellcheck?: "true" | "false" | boolean | undefined | null;
-    style?: string | Record<string, any> | undefined | null;
-    tabindex?: number | string | undefined | null;
-    title?: string | undefined | null;
-    translate?: "yes" | "no" | undefined | null;
-    radiogroup?: string | undefined | null;
-    role?: AriaRole | undefined | null;
-    about?: string | undefined | null;
-    datatype?: string | undefined | null;
-    inlist?: any;
-    prefix?: string | undefined | null;
-    property?: string | undefined | null;
-    resource?: string | undefined | null;
-    typeof?: string | undefined | null;
-    vocab?: string | undefined | null;
-    contextmenu?: string | undefined | null;
-    autosave?: string | undefined | null;
-    color?: string | undefined | null;
-    results?: number | string | undefined | null;
-    security?: string | undefined | null;
-    unselectable?: "on" | "off" | undefined | null;
+      | null
+    >;
+    is?: OrComputed<string | undefined | null>;
+    itemid?: OrComputed<string | undefined | null>;
+    itemprop?: OrComputed<string | undefined | null>;
+    itemref?: OrComputed<string | undefined | null>;
+    itemscope?: OrComputed<boolean | string | undefined | null>;
+    itemtype?: OrComputed<string | undefined | null>;
+    lang?: OrComputed<string | undefined | null>;
+    slot?: OrComputed<string | undefined | null>;
+    spellcheck?: OrComputed<"true" | "false" | boolean | undefined | null>;
+    style?: OrComputed<string | Record<string, any> | undefined | null>;
+    tabindex?: OrComputed<number | string | undefined | null>;
+    title?: OrComputed<string | undefined | null>;
+    translate?: OrComputed<"yes" | "no" | undefined | null>;
+    radiogroup?: OrComputed<string | undefined | null>;
+    role?: OrComputed<AriaRole | undefined | null>;
+    about?: OrComputed<string | undefined | null>;
+    datatype?: OrComputed<string | undefined | null>;
+    inlist?: OrComputed<any>;
+    prefix?: OrComputed<string | undefined | null>;
+    property?: OrComputed<string | undefined | null>;
+    resource?: OrComputed<string | undefined | null>;
+    typeof?: OrComputed<string | undefined | null>;
+    vocab?: OrComputed<string | undefined | null>;
+    contextmenu?: OrComputed<string | undefined | null>;
+    autosave?: OrComputed<string | undefined | null>;
+    color?: OrComputed<string | undefined | null>;
+    results?: OrComputed<number | string | undefined | null>;
+    security?: OrComputed<string | undefined | null>;
+    unselectable?: OrComputed<"on" | "off" | undefined | null>;
   }
 
   type HTMLAttributeReferrerPolicy =
@@ -284,152 +379,154 @@ export declare namespace JSXInternal {
   type HTMLAttributeAnchorTarget = "_self" | "_blank" | "_parent" | "_top";
 
   interface AnchorHTMLAttributes extends HTMLAttributes {
-    download?: string | boolean | undefined | null;
-    href?: string | URL | undefined | null;
-    hreflang?: string | undefined | null;
-    media?: string | undefined | null;
-    ping?: string | undefined | null;
-    rel?: string | undefined | null;
-    target?: HTMLAttributeAnchorTarget | undefined | null;
-    type?: string | undefined | null;
-    referrerpolicy?: HTMLAttributeReferrerPolicy | undefined | null;
+    download?: OrComputed<string | boolean | undefined | null>;
+    href?: OrComputed<string | URL | undefined | null>;
+    hreflang?: OrComputed<string | undefined | null>;
+    media?: OrComputed<string | undefined | null>;
+    ping?: OrComputed<string | undefined | null>;
+    rel?: OrComputed<string | undefined | null>;
+    target?: OrComputed<HTMLAttributeAnchorTarget | undefined | null>;
+    type?: OrComputed<string | undefined | null>;
+    referrerpolicy?: OrComputed<HTMLAttributeReferrerPolicy | undefined | null>;
   }
 
   interface AudioHTMLAttributes extends MediaHTMLAttributes {}
 
   interface AreaHTMLAttributes extends HTMLAttributes {
-    alt?: string | undefined | null;
-    coords?: string | undefined | null;
-    download?: any;
-    href?: string | undefined | null;
-    hreflang?: string | undefined | null;
-    media?: string | undefined | null;
-    referrerpolicy?: HTMLAttributeReferrerPolicy | undefined | null;
-    rel?: string | undefined | null;
-    shape?: string | undefined | null;
-    target?: string | undefined | null;
+    alt?: OrComputed<string | undefined | null>;
+    coords?: OrComputed<string | undefined | null>;
+    download?: OrComputed<any>;
+    href?: OrComputed<string | undefined | null>;
+    hreflang?: OrComputed<string | undefined | null>;
+    media?: OrComputed<string | undefined | null>;
+    referrerpolicy?: OrComputed<HTMLAttributeReferrerPolicy | undefined | null>;
+    rel?: OrComputed<string | undefined | null>;
+    shape?: OrComputed<string | undefined | null>;
+    target?: OrComputed<string | undefined | null>;
   }
 
   interface BaseHTMLAttributes extends HTMLAttributes {
-    href?: string | undefined | null;
-    target?: string | undefined | null;
+    href?: OrComputed<string | undefined | null>;
+    target?: OrComputed<string | undefined | null>;
   }
 
   interface BlockquoteHTMLAttributes extends HTMLAttributes {
-    cite?: string | undefined | null;
+    cite?: OrComputed<string | undefined | null>;
   }
 
   interface ButtonHTMLAttributes extends HTMLAttributes {
-    disabled?: boolean | string | undefined | null;
-    form?: string | undefined | null;
-    formaction?: string | undefined | null;
-    formenctype?: string | undefined | null;
-    formmethod?: string | undefined | null;
-    formnovalidate?: boolean | string | undefined | null;
-    formtarget?: string | undefined | null;
-    name?: string | undefined | null;
-    type?: "submit" | "reset" | "button" | undefined | null;
-    value?: string | string[] | number | undefined | null;
+    disabled?: OrComputed<boolean | string | undefined | null>;
+    form?: OrComputed<string | undefined | null>;
+    formaction?: OrComputed<string | undefined | null>;
+    formenctype?: OrComputed<string | undefined | null>;
+    formmethod?: OrComputed<string | undefined | null>;
+    formnovalidate?: OrComputed<boolean | string | undefined | null>;
+    formtarget?: OrComputed<string | undefined | null>;
+    name?: OrComputed<string | undefined | null>;
+    type?: OrComputed<"submit" | "reset" | "button" | undefined | null>;
+    value?: OrComputed<string | string[] | number | undefined | null>;
   }
 
   interface CanvasHTMLAttributes extends HTMLAttributes {
-    height?: number | string | undefined | null;
-    width?: number | string | undefined | null;
+    height?: OrComputed<number | string | undefined | null>;
+    width?: OrComputed<number | string | undefined | null>;
   }
 
   interface ColHTMLAttributes extends HTMLAttributes {
-    span?: number | string | undefined | null;
-    width?: number | string | undefined | null;
+    span?: OrComputed<number | string | undefined | null>;
+    width?: OrComputed<number | string | undefined | null>;
   }
 
   interface ColgroupHTMLAttributes extends HTMLAttributes {
-    span?: number | string | undefined | null;
+    span?: OrComputed<number | string | undefined | null>;
   }
 
   interface DataHTMLAttributes extends HTMLAttributes {
-    value?: string | string[] | number | undefined | null;
+    value?: OrComputed<string | string[] | number | undefined | null>;
   }
 
   interface DetailsHTMLAttributes extends HTMLAttributes {
-    open?: boolean | string | undefined | null;
+    open?: OrComputed<boolean | string | undefined | null>;
   }
 
   interface DelHTMLAttributes extends HTMLAttributes {
-    cite?: string | undefined | null;
-    datetime?: string | undefined | null;
+    cite?: OrComputed<string | undefined | null>;
+    datetime?: OrComputed<string | undefined | null>;
   }
 
   interface DialogHTMLAttributes extends HTMLAttributes {
-    open?: boolean | string | undefined | null;
+    open?: OrComputed<boolean | string | undefined | null>;
   }
 
   interface EmbedHTMLAttributes extends HTMLAttributes {
-    height?: number | string | undefined | null;
-    src?: string | undefined | null;
-    type?: string | undefined | null;
-    width?: number | string | undefined | null;
+    height?: OrComputed<number | string | undefined | null>;
+    src?: OrComputed<string | undefined | null>;
+    type?: OrComputed<string | undefined | null>;
+    width?: OrComputed<number | string | undefined | null>;
   }
 
   interface FieldsetHTMLAttributes extends HTMLAttributes {
-    disabled?: boolean | string | undefined | null;
-    form?: string | undefined | null;
-    name?: string | undefined | null;
+    disabled?: OrComputed<boolean | string | undefined | null>;
+    form?: OrComputed<string | undefined | null>;
+    name?: OrComputed<string | undefined | null>;
   }
 
   interface FormHTMLAttributes extends HTMLAttributes {
-    "accept-charset"?: string | undefined | null;
-    action?: string | undefined | null;
-    autocomplete?: string | undefined | null;
-    autocorrect?: string | undefined | null;
-    enctype?: string | undefined | null;
-    method?: string | undefined | null;
-    name?: string | undefined | null;
-    novalidate?: boolean | string | undefined | null;
-    target?: string | undefined | null;
+    "accept-charset"?: OrComputed<string | undefined | null>;
+    action?: OrComputed<string | undefined | null>;
+    autocomplete?: OrComputed<string | undefined | null>;
+    autocorrect?: OrComputed<string | undefined | null>;
+    enctype?: OrComputed<string | undefined | null>;
+    method?: OrComputed<string | undefined | null>;
+    name?: OrComputed<string | undefined | null>;
+    novalidate?: OrComputed<boolean | string | undefined | null>;
+    target?: OrComputed<string | undefined | null>;
   }
 
   interface HtmlHTMLAttributes extends HTMLAttributes {
-    manifest?: string | undefined | null;
+    manifest?: OrComputed<string | undefined | null>;
   }
 
   interface IframeHTMLAttributes extends HTMLAttributes {
-    allow?: string | undefined | null;
-    allowfullscreen?: boolean | string | undefined | null;
-    allowtransparency?: boolean | string | undefined | null;
-    fetchpriority?: "auto" | "high" | "low" | undefined | null;
-    frameborder?: number | string | undefined | null;
-    height?: number | string | undefined | null;
-    loading?: "eager" | "lazy" | undefined | null;
-    marginheight?: number | string | undefined | null;
-    marginwidth?: number | string | undefined | null;
-    name?: string | undefined | null;
-    referrerpolicy?: HTMLAttributeReferrerPolicy | undefined | null;
-    sandbox?: string | undefined | null;
-    scrolling?: string | undefined | null;
-    seamless?: boolean | string | undefined | null;
-    src?: string | undefined | null;
-    srcdoc?: string | undefined | null;
-    width?: number | string | undefined | null;
+    allow?: OrComputed<string | undefined | null>;
+    allowfullscreen?: OrComputed<boolean | string | undefined | null>;
+    allowtransparency?: OrComputed<boolean | string | undefined | null>;
+    fetchpriority?: OrComputed<"auto" | "high" | "low" | undefined | null>;
+    frameborder?: OrComputed<number | string | undefined | null>;
+    height?: OrComputed<number | string | undefined | null>;
+    loading?: OrComputed<"eager" | "lazy" | undefined | null>;
+    marginheight?: OrComputed<number | string | undefined | null>;
+    marginwidth?: OrComputed<number | string | undefined | null>;
+    name?: OrComputed<string | undefined | null>;
+    referrerpolicy?: OrComputed<HTMLAttributeReferrerPolicy | undefined | null>;
+    sandbox?: OrComputed<string | undefined | null>;
+    scrolling?: OrComputed<string | undefined | null>;
+    seamless?: OrComputed<boolean | string | undefined | null>;
+    src?: OrComputed<string | undefined | null>;
+    srcdoc?: OrComputed<string | undefined | null>;
+    width?: OrComputed<number | string | undefined | null>;
   }
 
   interface ImgHTMLAttributes extends HTMLAttributes {
-    alt?: string | undefined | null;
-    crossorigin?: "anonymous" | "use-credentials" | "" | undefined | null;
-    decoding?: "async" | "auto" | "sync" | undefined | null;
-    fetchpriority?: "auto" | "high" | "low" | undefined | null;
-    height?: number | string | undefined | null;
-    loading?: "eager" | "lazy" | undefined | null;
-    referrerpolicy?: HTMLAttributeReferrerPolicy | undefined | null;
-    sizes?: string | undefined | null;
-    src?: string | undefined | null;
-    srcset?: string | undefined | null;
-    usemap?: string | undefined | null;
-    width?: number | string | undefined | null;
+    alt?: OrComputed<string | undefined | null>;
+    crossorigin?: OrComputed<
+      "anonymous" | "use-credentials" | "" | undefined | null
+    >;
+    decoding?: OrComputed<"async" | "auto" | "sync" | undefined | null>;
+    fetchpriority?: OrComputed<"auto" | "high" | "low" | undefined | null>;
+    height?: OrComputed<number | string | undefined | null>;
+    loading?: OrComputed<"eager" | "lazy" | undefined | null>;
+    referrerpolicy?: OrComputed<HTMLAttributeReferrerPolicy | undefined | null>;
+    sizes?: OrComputed<string | undefined | null>;
+    src?: OrComputed<string | undefined | null>;
+    srcset?: OrComputed<string | undefined | null>;
+    usemap?: OrComputed<string | undefined | null>;
+    width?: OrComputed<number | string | undefined | null>;
   }
 
   interface InsHTMLAttributes extends HTMLAttributes {
-    cite?: string | undefined | null;
-    datetime?: string | undefined | null;
+    cite?: OrComputed<string | undefined | null>;
+    datetime?: OrComputed<string | undefined | null>;
   }
 
   type HTMLInputTypeAttribute =
@@ -457,274 +554,282 @@ export declare namespace JSXInternal {
     | "week";
 
   interface InputHTMLAttributes extends HTMLAttributes {
-    accept?: string | undefined | null;
-    alt?: string | undefined | null;
-    autocomplete?: string | undefined | null;
-    autocorrect?: string | undefined | null;
-    capture?: boolean | string | undefined | null;
-    checked?: boolean | string | undefined | null;
-    crossorigin?: string | undefined | null;
-    dirname?: string | undefined | null;
-    disabled?: boolean | string | undefined | null;
-    form?: string | undefined | null;
-    formaction?: string | undefined | null;
-    formenctype?: string | undefined | null;
-    formmethod?: string | undefined | null;
-    formnovalidate?: boolean | string | undefined | null;
-    formtarget?: string | undefined | null;
-    height?: number | string | undefined | null;
-    list?: string | undefined | null;
-    max?: number | string | undefined | null;
-    maxlength?: number | string | undefined | null;
-    min?: number | string | undefined | null;
-    minlength?: number | string | undefined | null;
-    multiple?: boolean | string | undefined | null;
-    name?: string | undefined | null;
-    pattern?: string | undefined | null;
-    placeholder?: string | undefined | null;
-    readonly?: boolean | string | undefined | null;
-    required?: boolean | string | undefined | null;
-    size?: number | string | undefined | null;
-    src?: string | undefined | null;
-    step?: number | string | undefined | null;
-    type?: HTMLInputTypeAttribute | undefined | null;
-    value?: string | string[] | number | undefined | null;
-    width?: number | string | undefined | null;
+    accept?: OrComputed<string | undefined | null>;
+    alt?: OrComputed<string | undefined | null>;
+    autocomplete?: OrComputed<string | undefined | null>;
+    autocorrect?: OrComputed<string | undefined | null>;
+    capture?: OrComputed<boolean | string | undefined | null>;
+    checked?: OrComputed<boolean | string | undefined | null>;
+    crossorigin?: OrComputed<string | undefined | null>;
+    dirname?: OrComputed<string | undefined | null>;
+    disabled?: OrComputed<boolean | string | undefined | null>;
+    form?: OrComputed<string | undefined | null>;
+    formaction?: OrComputed<string | undefined | null>;
+    formenctype?: OrComputed<string | undefined | null>;
+    formmethod?: OrComputed<string | undefined | null>;
+    formnovalidate?: OrComputed<boolean | string | undefined | null>;
+    formtarget?: OrComputed<string | undefined | null>;
+    height?: OrComputed<number | string | undefined | null>;
+    list?: OrComputed<string | undefined | null>;
+    max?: OrComputed<number | string | undefined | null>;
+    maxlength?: OrComputed<number | string | undefined | null>;
+    min?: OrComputed<number | string | undefined | null>;
+    minlength?: OrComputed<number | string | undefined | null>;
+    multiple?: OrComputed<boolean | string | undefined | null>;
+    name?: OrComputed<string | undefined | null>;
+    pattern?: OrComputed<string | undefined | null>;
+    placeholder?: OrComputed<string | undefined | null>;
+    readonly?: OrComputed<boolean | string | undefined | null>;
+    required?: OrComputed<boolean | string | undefined | null>;
+    size?: OrComputed<number | string | undefined | null>;
+    src?: OrComputed<string | undefined | null>;
+    step?: OrComputed<number | string | undefined | null>;
+    type?: OrComputed<HTMLInputTypeAttribute | undefined | null>;
+    value?: OrComputed<string | string[] | number | undefined | null>;
+    width?: OrComputed<number | string | undefined | null>;
   }
 
   interface LabelHTMLAttributes extends HTMLAttributes {
-    form?: string | undefined | null;
-    for?: string | undefined | null;
+    form?: OrComputed<string | undefined | null>;
+    for?: OrComputed<string | undefined | null>;
   }
 
   interface LiHTMLAttributes extends HTMLAttributes {
-    value?: string | number | undefined | null;
+    value?: OrComputed<string | number | undefined | null>;
   }
 
   interface LinkHTMLAttributes extends HTMLAttributes {
-    as?: string | undefined | null;
-    crossorigin?: boolean | string | undefined | null;
-    href?: string | URL | undefined | null;
-    hreflang?: string | undefined | null;
-    fetchpriority?: "auto" | "high" | "low" | undefined | null;
-    integrity?: string | undefined | null;
-    media?: string | undefined | null;
-    imagesrcset?: string | undefined | null;
-    imagesizes?: string | undefined | null;
-    referrerpolicy?: HTMLAttributeReferrerPolicy | undefined | null;
-    rel?: string | undefined | null;
-    sizes?: string | undefined | null;
-    type?: string | undefined | null;
-    charset?: string | undefined | null;
+    as?: OrComputed<string | undefined | null>;
+    crossorigin?: OrComputed<boolean | string | undefined | null>;
+    href?: OrComputed<string | URL | undefined | null>;
+    hreflang?: OrComputed<string | undefined | null>;
+    fetchpriority?: OrComputed<"auto" | "high" | "low" | undefined | null>;
+    integrity?: OrComputed<string | undefined | null>;
+    media?: OrComputed<string | undefined | null>;
+    imagesrcset?: OrComputed<string | undefined | null>;
+    imagesizes?: OrComputed<string | undefined | null>;
+    referrerpolicy?: OrComputed<HTMLAttributeReferrerPolicy | undefined | null>;
+    rel?: OrComputed<string | undefined | null>;
+    sizes?: OrComputed<string | undefined | null>;
+    type?: OrComputed<string | undefined | null>;
+    charset?: OrComputed<string | undefined | null>;
   }
 
   interface MapHTMLAttributes extends HTMLAttributes {
-    name?: string | undefined | null;
+    name?: OrComputed<string | undefined | null>;
   }
 
   interface MenuHTMLAttributes extends HTMLAttributes {
-    type?: string | undefined | null;
+    type?: OrComputed<string | undefined | null>;
   }
 
   interface MediaHTMLAttributes extends HTMLAttributes {
-    autoplay?: boolean | string | undefined | null;
-    controls?: boolean | string | undefined | null;
-    controlslist?: string | undefined | null;
-    crossorigin?: string | undefined | null;
-    loop?: boolean | string | undefined | null;
-    mediagroup?: string | undefined | null;
-    muted?: boolean | string | undefined | null;
-    playsinline?: boolean | string | undefined | null;
-    preload?: string | undefined | null;
-    src?: string | undefined | null;
+    autoplay?: OrComputed<boolean | string | undefined | null>;
+    controls?: OrComputed<boolean | string | undefined | null>;
+    controlslist?: OrComputed<string | undefined | null>;
+    crossorigin?: OrComputed<string | undefined | null>;
+    loop?: OrComputed<boolean | string | undefined | null>;
+    mediagroup?: OrComputed<string | undefined | null>;
+    muted?: OrComputed<boolean | string | undefined | null>;
+    playsinline?: OrComputed<boolean | string | undefined | null>;
+    preload?: OrComputed<string | undefined | null>;
+    src?: OrComputed<string | undefined | null>;
   }
 
   interface MetaHTMLAttributes extends HTMLAttributes {
-    charset?: string | undefined | null;
-    content?: string | URL | undefined | null;
-    "http-equiv"?: string | undefined | null;
-    name?: string | undefined | null;
-    media?: string | undefined | null;
+    charset?: OrComputed<string | undefined | null>;
+    content?: OrComputed<string | URL | undefined | null>;
+    "http-equiv"?: OrComputed<string | undefined | null>;
+    name?: OrComputed<string | undefined | null>;
+    media?: OrComputed<string | undefined | null>;
   }
 
   interface MeterHTMLAttributes extends HTMLAttributes {
-    form?: string | undefined | null;
-    high?: number | string | undefined | null;
-    low?: number | string | undefined | null;
-    max?: number | string | undefined | null;
-    min?: number | string | undefined | null;
-    optimum?: number | string | undefined | null;
-    value?: string | string[] | number | undefined | null;
+    form?: OrComputed<string | undefined | null>;
+    high?: OrComputed<number | string | undefined | null>;
+    low?: OrComputed<number | string | undefined | null>;
+    max?: OrComputed<number | string | undefined | null>;
+    min?: OrComputed<number | string | undefined | null>;
+    optimum?: OrComputed<number | string | undefined | null>;
+    value?: OrComputed<string | string[] | number | undefined | null>;
   }
 
   interface QuoteHTMLAttributes extends HTMLAttributes {
-    cite?: string | undefined | null;
+    cite?: OrComputed<string | undefined | null>;
   }
 
   interface ObjectHTMLAttributes extends HTMLAttributes {
-    classid?: string | undefined | null;
-    data?: string | undefined | null;
-    form?: string | undefined | null;
-    height?: number | string | undefined | null;
-    name?: string | undefined | null;
-    type?: string | undefined | null;
-    usemap?: string | undefined | null;
-    width?: number | string | undefined | null;
-    wmode?: string | undefined | null;
+    classid?: OrComputed<string | undefined | null>;
+    data?: OrComputed<string | undefined | null>;
+    form?: OrComputed<string | undefined | null>;
+    height?: OrComputed<number | string | undefined | null>;
+    name?: OrComputed<string | undefined | null>;
+    type?: OrComputed<string | undefined | null>;
+    usemap?: OrComputed<string | undefined | null>;
+    width?: OrComputed<number | string | undefined | null>;
+    wmode?: OrComputed<string | undefined | null>;
   }
 
   interface OlHTMLAttributes extends HTMLAttributes {
-    reversed?: boolean | string | undefined | null;
-    start?: number | string | undefined | null;
-    type?: "1" | "a" | "A" | "i" | "I" | undefined | null;
+    reversed?: OrComputed<boolean | string | undefined | null>;
+    start?: OrComputed<number | string | undefined | null>;
+    type?: OrComputed<"1" | "a" | "A" | "i" | "I" | undefined | null>;
   }
 
   interface OptgroupHTMLAttributes extends HTMLAttributes {
-    disabled?: boolean | string | undefined | null;
-    label?: string | undefined | null;
+    disabled?: OrComputed<boolean | string | undefined | null>;
+    label?: OrComputed<string | undefined | null>;
   }
 
   interface OptionHTMLAttributes extends HTMLAttributes {
-    disabled?: boolean | string | undefined | null;
-    label?: string | undefined | null;
-    selected?: boolean | string | undefined | null;
-    value?: string | string[] | number | undefined | null;
+    disabled?: OrComputed<boolean | string | undefined | null>;
+    label?: OrComputed<string | undefined | null>;
+    selected?: OrComputed<boolean | string | undefined | null>;
+    value?: OrComputed<string | string[] | number | undefined | null>;
   }
 
   interface OutputHTMLAttributes extends HTMLAttributes {
-    form?: string | undefined | null;
-    for?: string | undefined | null;
-    name?: string | undefined | null;
+    form?: OrComputed<string | undefined | null>;
+    for?: OrComputed<string | undefined | null>;
+    name?: OrComputed<string | undefined | null>;
   }
 
   interface ProgressHTMLAttributes extends HTMLAttributes {
-    max?: number | string | undefined | null;
-    value?: string | string[] | number | undefined | null;
+    max?: OrComputed<number | string | undefined | null>;
+    value?: OrComputed<string | string[] | number | undefined | null>;
   }
 
   interface SlotHTMLAttributes extends HTMLAttributes {
-    name?: string | undefined | null;
+    name?: OrComputed<string | undefined | null>;
   }
 
   interface ScriptHTMLAttributes extends HTMLAttributes {
-    async?: boolean | string | undefined | null;
-    charset?: string | undefined | null;
-    crossorigin?: string | undefined | null;
-    defer?: boolean | string | undefined | null;
-    fetchpriority?: "auto" | "high" | "low" | undefined | null;
-    integrity?: string | undefined | null;
-    nomodule?: boolean | string | undefined | null;
-    nonce?: string | undefined | null;
-    src?: string | undefined | null;
-    type?: string | undefined | null;
+    async?: OrComputed<boolean | string | undefined | null>;
+    charset?: OrComputed<string | undefined | null>;
+    crossorigin?: OrComputed<string | undefined | null>;
+    defer?: OrComputed<boolean | string | undefined | null>;
+    fetchpriority?: OrComputed<"auto" | "high" | "low" | undefined | null>;
+    integrity?: OrComputed<string | undefined | null>;
+    nomodule?: OrComputed<boolean | string | undefined | null>;
+    nonce?: OrComputed<string | undefined | null>;
+    src?: OrComputed<string | undefined | null>;
+    type?: OrComputed<string | undefined | null>;
   }
 
   interface SelectHTMLAttributes extends HTMLAttributes {
-    autocomplete?: string | undefined | null;
-    autocorrect?: string | undefined | null;
-    disabled?: boolean | string | undefined | null;
-    form?: string | undefined | null;
-    multiple?: boolean | string | undefined | null;
-    name?: string | undefined | null;
-    required?: boolean | string | undefined | null;
-    size?: number | string | undefined | null;
-    value?: string | string[] | number | undefined | null;
+    autocomplete?: OrComputed<string | undefined | null>;
+    autocorrect?: OrComputed<string | undefined | null>;
+    disabled?: OrComputed<boolean | string | undefined | null>;
+    form?: OrComputed<string | undefined | null>;
+    multiple?: OrComputed<boolean | string | undefined | null>;
+    name?: OrComputed<string | undefined | null>;
+    required?: OrComputed<boolean | string | undefined | null>;
+    size?: OrComputed<number | string | undefined | null>;
+    value?: OrComputed<string | string[] | number | undefined | null>;
   }
 
   interface SourceHTMLAttributes extends HTMLAttributes {
-    height?: number | string | undefined | null;
-    media?: string | undefined | null;
-    sizes?: string | undefined | null;
-    src?: string | undefined | null;
-    srcset?: string | undefined | null;
-    type?: string | undefined | null;
-    width?: number | string | undefined | null;
+    height?: OrComputed<number | string | undefined | null>;
+    media?: OrComputed<string | undefined | null>;
+    sizes?: OrComputed<string | undefined | null>;
+    src?: OrComputed<string | undefined | null>;
+    srcset?: OrComputed<string | undefined | null>;
+    type?: OrComputed<string | undefined | null>;
+    width?: OrComputed<number | string | undefined | null>;
   }
 
   interface StyleHTMLAttributes extends HTMLAttributes {
-    media?: string | undefined | null;
-    nonce?: string | undefined | null;
-    scoped?: boolean | string | undefined | null;
-    type?: string | undefined | null;
+    media?: OrComputed<string | undefined | null>;
+    nonce?: OrComputed<string | undefined | null>;
+    scoped?: OrComputed<boolean | string | undefined | null>;
+    type?: OrComputed<string | undefined | null>;
   }
 
   interface TableHTMLAttributes extends HTMLAttributes {
-    align?: "left" | "center" | "right" | undefined | null;
-    bgcolor?: string | undefined | null;
-    border?: string | number | undefined | null;
-    cellpadding?: number | string | undefined | null;
-    cellspacing?: number | string | undefined | null;
-    frame?: boolean | "false" | "true" | undefined | null;
-    rules?: "none" | "groups" | "rows" | "columns" | "all" | undefined | null;
-    summary?: string | undefined | null;
-    width?: number | string | undefined | null;
+    align?: OrComputed<"left" | "center" | "right" | undefined | null>;
+    bgcolor?: OrComputed<string | undefined | null>;
+    border?: OrComputed<string | number | undefined | null>;
+    cellpadding?: OrComputed<number | string | undefined | null>;
+    cellspacing?: OrComputed<number | string | undefined | null>;
+    frame?: OrComputed<boolean | "false" | "true" | undefined | null>;
+    rules?: OrComputed<
+      "none" | "groups" | "rows" | "columns" | "all" | undefined | null
+    >;
+    summary?: OrComputed<string | undefined | null>;
+    width?: OrComputed<number | string | undefined | null>;
   }
 
   interface TextareaHTMLAttributes extends HTMLAttributes {
-    autocomplete?: string | undefined | null;
-    autocorrect?: string | undefined | null;
-    cols?: number | string | undefined | null;
-    dirname?: string | undefined | null;
-    disabled?: boolean | string | undefined | null;
-    form?: string | undefined | null;
-    maxlength?: number | string | undefined | null;
-    minlength?: number | string | undefined | null;
-    name?: string | undefined | null;
-    placeholder?: string | undefined | null;
-    readonly?: boolean | string | undefined | null;
-    required?: boolean | string | undefined | null;
-    rows?: number | string | undefined | null;
-    value?: string | string[] | number | undefined | null;
-    wrap?: string | undefined | null;
+    autocomplete?: OrComputed<string | undefined | null>;
+    autocorrect?: OrComputed<string | undefined | null>;
+    cols?: OrComputed<number | string | undefined | null>;
+    dirname?: OrComputed<string | undefined | null>;
+    disabled?: OrComputed<boolean | string | undefined | null>;
+    form?: OrComputed<string | undefined | null>;
+    maxlength?: OrComputed<number | string | undefined | null>;
+    minlength?: OrComputed<number | string | undefined | null>;
+    name?: OrComputed<string | undefined | null>;
+    placeholder?: OrComputed<string | undefined | null>;
+    readonly?: OrComputed<boolean | string | undefined | null>;
+    required?: OrComputed<boolean | string | undefined | null>;
+    rows?: OrComputed<number | string | undefined | null>;
+    value?: OrComputed<string | string[] | number | undefined | null>;
+    wrap?: OrComputed<string | undefined | null>;
   }
 
   interface TdHTMLAttributes extends HTMLAttributes {
-    align?: "left" | "center" | "right" | "justify" | "char" | undefined | null;
-    colspan?: number | string | undefined | null;
-    headers?: string | undefined | null;
-    rowspan?: number | string | undefined | null;
-    scope?: string | undefined | null;
-    abbr?: string | undefined | null;
-    valign?: "top" | "middle" | "bottom" | "baseline" | undefined | null;
+    align?: OrComputed<
+      "left" | "center" | "right" | "justify" | "char" | undefined | null
+    >;
+    colspan?: OrComputed<number | string | undefined | null>;
+    headers?: OrComputed<string | undefined | null>;
+    rowspan?: OrComputed<number | string | undefined | null>;
+    scope?: OrComputed<string | undefined | null>;
+    abbr?: OrComputed<string | undefined | null>;
+    valign?: OrComputed<
+      "top" | "middle" | "bottom" | "baseline" | undefined | null
+    >;
   }
 
   interface ThHTMLAttributes extends HTMLAttributes {
-    align?: "left" | "center" | "right" | "justify" | "char" | undefined | null;
-    colspan?: number | string | undefined | null;
-    headers?: string | undefined | null;
-    rowspan?: number | string | undefined | null;
-    scope?: string | undefined | null;
-    abbr?: string | undefined | null;
+    align?: OrComputed<
+      "left" | "center" | "right" | "justify" | "char" | undefined | null
+    >;
+    colspan?: OrComputed<number | string | undefined | null>;
+    headers?: OrComputed<string | undefined | null>;
+    rowspan?: OrComputed<number | string | undefined | null>;
+    scope?: OrComputed<string | undefined | null>;
+    abbr?: OrComputed<string | undefined | null>;
   }
 
   interface TimeHTMLAttributes extends HTMLAttributes {
-    datetime?: string | undefined | null;
+    datetime?: OrComputed<string | undefined | null>;
   }
 
   interface TrackHTMLAttributes extends HTMLAttributes {
-    default?: boolean | string | undefined | null;
-    kind?: string | undefined | null;
-    label?: string | undefined | null;
-    src?: string | undefined | null;
-    srclang?: string | undefined | null;
+    default?: OrComputed<boolean | string | undefined | null>;
+    kind?: OrComputed<string | undefined | null>;
+    label?: OrComputed<string | undefined | null>;
+    src?: OrComputed<string | undefined | null>;
+    srclang?: OrComputed<string | undefined | null>;
   }
 
   interface VideoHTMLAttributes extends MediaHTMLAttributes {
-    height?: number | string | undefined | null;
-    playsinline?: boolean | string | undefined | null;
-    poster?: string | undefined | null;
-    width?: number | string | undefined | null;
-    disablepictureinpicture?: boolean | string | undefined | null;
+    height?: OrComputed<number | string | undefined | null>;
+    playsinline?: OrComputed<boolean | string | undefined | null>;
+    poster?: OrComputed<string | undefined | null>;
+    width?: OrComputed<number | string | undefined | null>;
+    disablepictureinpicture?: OrComputed<boolean | string | undefined | null>;
   }
 
-  export type IntrinsicAttributes<
-    A extends HTMLAttributes,
-    T extends EventTarget
-  > = Computed<A> &
-    EventHandlers<T> & {
-      ref?: Signal<T | null>;
-      [customAttr: string]: any;
-    };
+  export interface IntrinsicAttributes<
+    A extends HTMLAttributes = HTMLAttributes,
+    T extends EventTarget = EventTarget
+  > extends A,
+      EventHandlers<T> {
+    ref?: Signal<T | null>;
+    [customAttr: string]: any;
+  }
 
   export interface IntrinsicElements {
     a: IntrinsicAttributes<AnchorHTMLAttributes, HTMLAnchorElement>;
