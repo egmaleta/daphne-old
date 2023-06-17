@@ -23,10 +23,8 @@ function createElement(vnode: JSXInternal.VNode) {
     // append event listeners and attributes
     Object.entries(vnode.props).forEach(([attrName, attr]) => {
       if (attrName === "ref") {
-        return;
-      }
-      const isEventListener = attrName.startsWith(EVENT_LISTENER_PREFIX);
-      if (isEventListener) {
+        attr && attr.set(element);
+      } else if (attrName.startsWith(EVENT_LISTENER_PREFIX)) {
         attrName = attrName.slice(EVENT_LISTENER_PREFIX.length);
         element.addEventListener(attrName, attr);
       } else if (typeof attr !== "function") {

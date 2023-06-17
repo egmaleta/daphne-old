@@ -1,3 +1,4 @@
+import type { Signal } from "@daphnejs/signals";
 import type { Computed, EVENT_LISTENER_PREFIX } from "./util";
 
 export namespace JSXInternal {
@@ -719,6 +720,7 @@ export namespace JSXInternal {
     T extends EventTarget
   > = Computed<A> &
     EventHandlers<T> & {
+      ref?: Signal<T | null>;
       [customAttr: string]: any;
     };
 
