@@ -946,6 +946,10 @@ export declare namespace JSXInternal {
     wbr: Attributes<HTMLAttributes, HTMLElement>;
   }
 
+  export interface ElementChildrenAttribute {
+    children;
+  }
+
   export type Renderizable = string | number;
 
   export type TextVNodeChild = Renderizable | (() => Renderizable);
@@ -972,10 +976,7 @@ export declare namespace JSXInternal {
 
   export type Element = VNodeChild | VNodeChildren;
 
-  export type FunctionComponent<
-    C extends Element = Element,
-    P extends Record<string, any> & { children?: C } = {}
-  > = {
+  export type FunctionComponent<P extends Record<string, any> = {}> = {
     (props: P): Element;
   };
 }
