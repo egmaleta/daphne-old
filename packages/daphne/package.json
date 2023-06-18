@@ -4,6 +4,7 @@
   "type": "module",
   "files": [
     "dist",
+    "src/common.d.ts",
     "src/hyperscript.d.ts",
     "src/index.d.ts",
     "src/jsx-dev-runtime.d.ts",
