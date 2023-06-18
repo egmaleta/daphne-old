@@ -3,6 +3,6 @@ import type { JSXInternal } from "./lib/types/jsx";
 export { Fragment } from "./common";
 
 export declare function render(
-  parentElement: HTMLElement,
+  parentElement: HTMLElement | null,
   vnode: JSXInternal.Element
 ): void;

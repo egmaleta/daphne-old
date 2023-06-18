@@ -87,20 +87,22 @@ function appendChildren(
 }
 
 export default function (
-  parentElement: HTMLElement,
+  parentElement: HTMLElement | null,
   vnode: JSXInternal.Element
 ) {
-  if (Array.isArray(vnode)) {
-    vnode = purge([...flatten(vnode)]);
-    appendChildren(parentElement, vnode as JSXInternal.VNode[]);
+  if (parentElement) {
+    if (Array.isArray(vnode)) {
+      vnode = purge([...flatten(vnode)]);
+      appendChildren(parentElement, vnode as JSXInternal.VNode[]);
 
-    vnode.forEach((child) => {
-      isTagVNode(child) && triggerLifecycleHook(child, "mounted");
-    });
-  } else if (isVNode(vnode)) {
-    const child = createElement(vnode);
-    parentElement.appendChild(child);
+      vnode.forEach((child) => {
+        isTagVNode(child) && triggerLifecycleHook(child, "mounted");
+      });
+    } else if (isVNode(vnode)) {
+      const child = createElement(vnode);
+      parentElement.appendChild(child);
 
-    isTagVNode(vnode) && triggerLifecycleHook(vnode, "mounted");
+      isTagVNode(vnode) && triggerLifecycleHook(vnode, "mounted");
+    }
   }
 }
