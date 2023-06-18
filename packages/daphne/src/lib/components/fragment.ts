@@ -1,5 +1,3 @@
-import type { JSXInternal } from "../types/jsx";
-
-export default function (props: { children: JSXInternal.VNodeChildren }) {
+export default function (props: any) {
   return props.children;
 }
