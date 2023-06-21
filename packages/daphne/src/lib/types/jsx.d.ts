@@ -971,6 +971,7 @@ export declare namespace JSXInternal {
     children: VNodeChildren;
     triggers?: {
       mount?: () => any;
+      update?: () => any;
     };
   };
 

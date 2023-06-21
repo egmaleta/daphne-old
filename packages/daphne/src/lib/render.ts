@@ -1,6 +1,6 @@
 import { effect } from "@daphnejs/signals";
 import type { JSXInternal } from "./types/jsx";
-import { triggerOnMount } from "./hooks";
+import { triggerHook } from "./hooks";
 import { flatten, isTagVNode, isVNode, purge } from "./util";
 
 const EVENT_LISTENER_PREFIX = "on";
@@ -51,6 +51,7 @@ function createElement(vnode: JSXInternal.VNode) {
         effect(() => {
           const computedAttr = attr();
           setAttribute(element, attrName, computedAttr);
+          triggerHook(vnode, "update");
         });
       }
     });
@@ -96,13 +97,13 @@ export default function (
       appendChildren(parentElement, vnode as JSXInternal.VNode[]);
 
       vnode.forEach((child) => {
-        isTagVNode(child) && triggerOnMount(child);
+        isTagVNode(child) && triggerHook(child, "mount", true);
       });
     } else if (isVNode(vnode)) {
       const child = createElement(vnode);
       parentElement.appendChild(child);
 
-      isTagVNode(vnode) && triggerOnMount(vnode);
+      isTagVNode(vnode) && triggerHook(vnode, "mount", true);
     }
   }
 }
