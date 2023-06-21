@@ -2,6 +2,12 @@ import { effect, signal } from "@daphnejs/signals";
 import type { JSXInternal } from "./types/jsx";
 import { isTagVNode } from "./util";
 
+let MOUNTED = false;
+
+export function setMounted(value: boolean) {
+  MOUNTED = value;
+}
+
 let TRIGGERS: {
   mount?: () => any;
   update?: () => any;
@@ -55,5 +61,5 @@ export function onUpdate(callback: () => any) {
   const triggerSignal = signal(false);
   effect(callback, triggerSignal);
 
-  TRIGGERS.update = () => triggerSignal.update((v) => !v);
+  TRIGGERS.update = () => MOUNTED && triggerSignal.update((v) => !v);
 }
