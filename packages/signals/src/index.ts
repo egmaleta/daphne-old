@@ -49,7 +49,6 @@ export const effect = (
     for (const dependency of dependencies) {
       dependency.subscribe(computation);
     }
-    computation();
   } else {
     new Effect(computation);
   }
