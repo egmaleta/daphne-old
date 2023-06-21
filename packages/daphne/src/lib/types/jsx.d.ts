@@ -969,7 +969,9 @@ export declare namespace JSXInternal {
     tag: T;
     props: Props<T>;
     children: VNodeChildren;
-    mounted?: () => any;
+    triggers?: {
+      mount?: () => any;
+    };
   };
 
   export type VNode<T extends Tag = Tag> = TagVNode<T> | TextVNode;

@@ -1,41 +1,37 @@
 import type { JSXInternal } from "./types/jsx";
 import { isTagVNode } from "./util";
 
-let CALLBACKS: {
-  mounted?: () => any;
+let TRIGGERS: {
+  mount?: () => any;
 } = {};
 
 export function attachHooks(
   component: JSXInternal.FunctionComponent,
   props: Record<string, any>
 ) {
-  const temp = { ...CALLBACKS };
-  CALLBACKS = {};
+  const temp = { ...TRIGGERS };
+  TRIGGERS = {};
 
-  const result = component(props);
-  if (!Array.isArray(result) && isTagVNode(result)) {
-    result.mounted = CALLBACKS.mounted;
+  const vnode = component(props);
+  if (!Array.isArray(vnode) && isTagVNode(vnode)) {
+    vnode.triggers = TRIGGERS;
   }
 
-  CALLBACKS = temp;
+  TRIGGERS = temp;
 
-  return result;
+  return vnode;
 }
 
 export function onMount(callback: () => any) {
-  CALLBACKS.mounted = callback;
+  TRIGGERS.mount = callback;
 }
 
-export function triggerHook(
-  vnode: JSXInternal.TagVNode,
-  triggerName: "mounted",
-  recursive = true
-) {
-  const trigger = vnode[triggerName];
+export function triggerOnMount(vnode: JSXInternal.TagVNode, recursive = true) {
+  const trigger = vnode.triggers?.mount;
   trigger && trigger();
 
   recursive &&
     vnode.children.forEach((child) => {
-      isTagVNode(child) && triggerHook(child, triggerName, recursive);
+      isTagVNode(child) && triggerOnMount(child, recursive);
     });
 }
