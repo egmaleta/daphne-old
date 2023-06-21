@@ -1,27 +1,28 @@
 import { setCurrentComputation } from "./current-computation";
-import type { SignalSubscriber } from "./types";
+import type { SignalConsumer } from "./types";
 
-export default class Effect implements SignalSubscriber {
-  private computation: () => void;
-  private computing: boolean;
+export default class Effect implements SignalConsumer {
+  private computation: () => any;
+  private staling: boolean;
 
-  constructor(computation: () => void) {
+  constructor(computation: () => any) {
     this.computation = computation;
-    this.computing = false;
-    this.recompute();
+    this.staling = false;
+
+    this.compute();
   }
 
-  private recompute() {
-    this.computing = true;
+  private compute() {
+    this.staling = true;
     setCurrentComputation(this);
     this.computation();
     setCurrentComputation(null);
-    this.computing = false;
+    this.staling = false;
   }
 
   stale() {
-    if (!this.computing) {
-      this.recompute();
+    if (!this.staling) {
+      this.compute();
     }
   }
 }

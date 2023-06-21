@@ -1,16 +1,13 @@
-import SignalClass from "./lib/signal";
-import ComputedClass from "./lib/computed";
+import {
+  Signal as SignalClass,
+  ComputedSignal as ComputedClass,
+} from "./lib/signals";
 import Effect from "./lib/effect";
-import type {
-  ReadonlySignal,
-  Signal,
-  TargetType,
-  UpdateFunction,
-} from "./lib/types";
+import type { ReadonlySignal, Signal, UpdateFunction } from "./lib/types";
 
 export type { Signal, ReadonlySignal };
 
-export const signal = <T extends TargetType>(initialValue: T): Signal<T> => {
+export const signal = <T extends any>(initialValue: T): Signal<T> => {
   const signal = new SignalClass(initialValue);
 
   const getter = () => signal.get();
@@ -21,7 +18,7 @@ export const signal = <T extends TargetType>(initialValue: T): Signal<T> => {
   return Object.assign(getter, writter);
 };
 
-export const computed = <T extends TargetType>(
+export const computed = <T extends any>(
   computation: () => T
 ): ReadonlySignal<T> => {
   const computed = new ComputedClass(computation);
@@ -29,6 +26,6 @@ export const computed = <T extends TargetType>(
   return () => computed.get();
 };
 
-export const effect = (computation: () => void) => {
+export const effect = (computation: () => any) => {
   new Effect(computation);
 };

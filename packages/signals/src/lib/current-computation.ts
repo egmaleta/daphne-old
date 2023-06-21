@@ -1,4 +1,4 @@
-import type { SignalSubscriber } from "./types";
+import type { SignalConsumer } from "./types";
 
 const PROPERTY_NAME = "DAPHNE_CURRENT_COMPUTATION";
 
@@ -12,9 +12,9 @@ if (typeof (globalThis as any)[PROPERTY_NAME] === "undefined") {
 }
 
 export function getCurrentComputation() {
-  return (globalThis as any)[PROPERTY_NAME] as SignalSubscriber | null;
+  return (globalThis as any)[PROPERTY_NAME] as SignalConsumer | null;
 }
 
-export function setCurrentComputation(value: SignalSubscriber | null) {
+export function setCurrentComputation(value: SignalConsumer | null) {
   (globalThis as any)[PROPERTY_NAME] = value;
 }
