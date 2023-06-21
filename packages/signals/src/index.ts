@@ -3,7 +3,13 @@ import {
   ComputedSignal as ComputedClass,
 } from "./lib/signals";
 import Effect from "./lib/effect";
-import type { ReadonlySignal, Signal, UpdateFunction } from "./lib/types";
+import type {
+  Callback,
+  ReadonlySignal,
+  Signal,
+  SignalConsumer,
+  UpdateFunction,
+} from "./lib/types";
 
 export type { Signal, ReadonlySignal };
 
@@ -15,7 +21,11 @@ export const signal = <T extends any>(initialValue: T): Signal<T> => {
     set: (newValue: T) => signal.set(newValue),
     update: (updateFunc: UpdateFunction<T>) => signal.update(updateFunc),
   };
-  return Object.assign(getter, writter);
+  const sender = {
+    subscribe: (sub: SignalConsumer | Callback) => signal.subscribe(sub),
+  };
+
+  return Object.assign(getter, writter, sender);
 };
 
 export const computed = <T extends any>(
@@ -23,9 +33,24 @@ export const computed = <T extends any>(
 ): ReadonlySignal<T> => {
   const computed = new ComputedClass(computation);
 
-  return () => computed.get();
+  const getter = () => computed.get();
+  const sender = {
+    subscribe: (sub: SignalConsumer | Callback) => computed.subscribe(sub),
+  };
+
+  return Object.assign(getter, sender);
 };
 
-export const effect = (computation: () => any) => {
-  new Effect(computation);
+export const effect = (
+  computation: () => any,
+  ...dependencies: ReadonlySignal[]
+) => {
+  if (dependencies.length) {
+    for (const dependency of dependencies) {
+      dependency.subscribe(computation);
+    }
+    computation();
+  } else {
+    new Effect(computation);
+  }
 };

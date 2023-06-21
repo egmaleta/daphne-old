@@ -17,5 +17,6 @@ export interface SignalSender {
   subscribe: (sub: SignalConsumer | Callback) => void;
 }
 
-export type ReadonlySignal<T extends any> = SignalGetter<T>["get"];
-export type Signal<T extends any> = ReadonlySignal<T> & SignalWriter<T>;
+export type ReadonlySignal<T extends any = any> = SignalGetter<T>["get"] &
+  Pick<SignalSender, "subscribe">;
+export type Signal<T extends any = any> = ReadonlySignal<T> & SignalWriter<T>;
