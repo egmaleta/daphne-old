@@ -7,7 +7,7 @@ export default defineConfig({
         "src/index.ts",
         "src/jsx-runtime.ts",
         "src/jsx-dev-runtime.ts",
-        "src/lifecycle.ts",
+        "src/hooks.ts",
         "src/signals.ts",
         "src/hyperscript.ts",
       ],

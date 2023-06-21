@@ -1,4 +1,4 @@
-import { attachLifecycleHookTriggers } from "./lifecycle";
+import { attachHooks } from "./hooks";
 import type { JSXInternal } from "./types/jsx";
 import { flatten, purge } from "./util";
 
@@ -32,5 +32,5 @@ export default function <
     props.children = [...flatten(props.children)];
   }
 
-  return attachLifecycleHookTriggers(component, props);
+  return attachHooks(component, props);
 }

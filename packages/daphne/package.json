@@ -9,7 +9,7 @@
     "src/index.d.ts",
     "src/jsx-dev-runtime.d.ts",
     "src/jsx-runtime.d.ts",
-    "src/lifecycle.d.ts",
+    "src/hooks.d.ts",
     "src/signals.d.ts"
   ],
   "main": "./dist/index.common.js",
@@ -31,10 +31,10 @@
       "require": "./dist/jsx-dev-runtime.common.js",
       "types": "./src/jsx-dev-runtime.d.ts"
     },
-    "./lifecycle": {
-      "import": "./dist/lifecycle.es.js",
-      "require": "./dist/lifecycle.common.js",
-      "types": "./src/lifecycle.d.ts"
+    "./hooks": {
+      "import": "./dist/hooks.es.js",
+      "require": "./dist/hooks.common.js",
+      "types": "./src/hooks.d.ts"
     },
     "./hyperscript": {
       "import": "./dist/hyperscript.es.js",
